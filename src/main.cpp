@@ -1,7 +1,10 @@
+#include "window.hpp"
 #include <cstdio>
-
 int main(int argc, char const *argv[])
 {
-    std::printf("hello world\n");
+
+    Window window("Hello World", 800, 600);
+    while (!window.isClosed())
+        window.loop();
     return 0;
 }

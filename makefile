@@ -4,7 +4,7 @@ LDLIBS ?= -lm
 
 EXEC = break-brick
 
-INCLUDE_PATH ?= ./includes
+INCLUDE_PATH ?= ./include
 SRC_PATH = ./src
 OBJ_PATH = ./obj
 BIN_PATH = ./bin
@@ -25,7 +25,7 @@ docs:
 
 $(BIN_PATH)/$(EXEC): $(OBJ_PATH)/main.o $(OBJECTS)
 	mkdir -p $(BIN_PATH)
-	$(CC) -o $@ $^ $(CFLAGS)
+	$(CC) -o $@ $^ $(CFLAGS) -I$(INCLUDE_PATH) 
 	@echo "Linking complete!"
 
 $(OBJECTS): $(OBJ_PATH)/%.o : $(SRC_PATH)/%.cpp 
