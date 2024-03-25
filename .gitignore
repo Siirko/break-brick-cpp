@@ -1,0 +1,8 @@
+.vscode/
+bin/
+obj/
+games/
+vgcore.*
+build/
+test/test.log
+docs/
