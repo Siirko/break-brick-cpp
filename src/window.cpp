@@ -12,11 +12,8 @@ Window::Window(const std::string &title, const int width, const int height)
       m_renderer(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED), SDL_DestroyRenderer)
 {
     // needs to check if checkSDL can handle this case
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
-    {
-        std::cout << str_format("Failed to initialize SDL: %s", SDL_GetError()) << std::endl;
-        throw std::runtime_error("Failed to initialize SDL");
-    }
+    int result = SDL_Init(SDL_INIT_VIDEO);
+    checkSDL<int>(result, result == 0);
     checkSDL<SDL_Window *>(this->m_window.get(), nullptr);
     checkSDL<SDL_Renderer *>(this->m_renderer.get(), nullptr);
 }

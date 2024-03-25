@@ -13,6 +13,8 @@ void Paddle::moveRight(const double delta) { this->paddle.x += this->m_speed; }
 
 void Paddle::render(SDL_Renderer &renderer) const
 {
-    SDL_SetRenderDrawColor(&renderer, m_color.r, m_color.g, m_color.b, m_color.a);
-    SDL_RenderFillRect(&renderer, &paddle);
+    int res = SDL_SetRenderDrawColor(&renderer, m_color.r, m_color.g, m_color.b, m_color.a);
+    checkSDL<int>(res, res == 0);
+    res = SDL_RenderFillRect(&renderer, &paddle);
+    checkSDL<int>(res, res == 0);
 }

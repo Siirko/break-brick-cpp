@@ -1,6 +1,6 @@
-CC := g++
-CFLAGS ?= -Wall -Werror -g -std=c++20 -lstdc++fs -lSDL2 -lSDL2_image -lSDL2_ttf
-LDLIBS ?= -lm
+CC := clang++
+CFLAGS ?= -Wall -g -Werror -std=c++20
+LDLIBS ?= -lm -lSDL2 -lSDL2_image -lSDL2_ttf
 
 EXEC = break-brick
 
@@ -25,7 +25,7 @@ docs:
 
 $(BIN_PATH)/$(EXEC): $(OBJ_PATH)/main.o $(OBJECTS)
 	mkdir -p $(BIN_PATH)
-	$(CC) -o $@ $^ $(CFLAGS) -I$(INCLUDE_PATH) 
+	$(CC) -o $@ $^ $(CFLAGS) -I$(INCLUDE_PATH) $(LDLIBS)
 	@echo "Linking complete!"
 
 $(OBJECTS): $(OBJ_PATH)/%.o : $(SRC_PATH)/%.cpp 
