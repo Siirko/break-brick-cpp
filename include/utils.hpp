@@ -4,6 +4,8 @@
 #include <iostream>
 #include <memory>
 
+// using this way because apparently std::format is only available in gcc 13, and so some ubuntu versions
+// don't have it yet
 template <typename... Args> std::string str_format(const std::string &format, Args... args)
 {
     int size_s = std::snprintf(nullptr, 0, format.c_str(), args...) + 1; // Extra space for '\0'
