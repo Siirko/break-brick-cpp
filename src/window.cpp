@@ -1,6 +1,5 @@
 #include "window.hpp"
 #include "utils.hpp"
-#include <format>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -15,7 +14,7 @@ Window::Window(const std::string &title, const int width, const int height)
     // needs to check if checkSDL can handle this case
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
-        std::cout << std::format("Failed to initialize SDL: {}", SDL_GetError());
+        std::cout << str_format("Failed to initialize SDL: %s", SDL_GetError()) << std::endl;
         throw std::runtime_error("Failed to initialize SDL");
     }
     checkSDL<SDL_Window *>(this->m_window.get(), nullptr);

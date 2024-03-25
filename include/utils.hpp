@@ -1,15 +1,28 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <cstdint>
-#include <format>
 #include <iostream>
+#include <memory>
+
+template <typename... Args> std::string str_format(const std::string &format, Args... args)
+{
+    int size_s = std::snprintf(nullptr, 0, format.c_str(), args...) + 1; // Extra space for '\0'
+    if (size_s <= 0)
+    {
+        throw std::runtime_error("Error during formatting.");
+    }
+    auto size = static_cast<size_t>(size_s);
+    std::unique_ptr<char[]> buf(new char[size]);
+    std::snprintf(buf.get(), size, format.c_str(), args...);
+    return std::string(buf.get(), buf.get() + size - 1); // We don't want the '\0' inside
+}
 
 // macro to check if SDL is initialized
 template <typename T> inline void checkSDL(const T &result, const T &error)
 {
     if (result == error)
     {
-        std::cout << std::format("Failed to initialize SDL: {}", SDL_GetError());
+        std::cout << str_format("Failed to initialize SDL: %s", SDL_GetError()) << std::endl;
         throw std::runtime_error("Failed to initialize SDL");
     }
 }
