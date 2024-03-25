@@ -1,10 +1,10 @@
-#include "window.hpp"
+#include "game.hpp"
 #include <cstdio>
 int main(int argc, char const *argv[])
 {
 
-    Window window("Hello World", 800, 600);
-    while (!window.isClosed())
-        window.loop();
+    Game game("Breakout", 800, 600);
+    while (!game.isClosed())
+        game.loop();
     return 0;
 }

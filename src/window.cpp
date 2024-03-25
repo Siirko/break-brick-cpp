@@ -22,39 +22,23 @@ Window::Window(const std::string &title, const int width, const int height)
     checkSDL<SDL_Renderer *>(this->m_renderer.get(), nullptr);
 }
 
-void Window::render() const { SDL_RenderPresent(m_renderer.get()); }
-
-void Window::pollEvents(SDL_Event &event)
-{
-    if (SDL_PollEvent(&event))
-    {
-        switch (event.type)
-        {
-        case SDL_QUIT:
-            m_closed = true;
-            std::cout << "Window closed" << std::endl;
-            break;
-        default:
-            break;
-        }
-    }
-}
-
-void Window::clear() const
-{
-    // needs to be checked
-    SDL_RenderClear(m_renderer.get());
-}
-
 void Window::loop()
 {
     SDL_Event event;
     while (!this->isClosed())
     {
-        pollEvents(event);
         clear();
-        render();
+        m_clock.tick();
+        pollEvents(event, m_clock.delta);
+        render(m_clock.delta);
     }
 }
 
-Window::~Window() { SDL_Quit(); }
+Window::~Window()
+{
+    if (this->m_renderer != nullptr)
+        SDL_DestroyRenderer(this->m_renderer.get());
+    if (this->m_window != nullptr)
+        SDL_DestroyWindow(this->m_window.get());
+    SDL_Quit();
+}
