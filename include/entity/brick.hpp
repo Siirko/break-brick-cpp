@@ -29,11 +29,19 @@ class Brick : public Collidable
     BrickType m_type;
     SDL_Rect m_rect;
     int m_life;
-    bool m_destroyed;
+    bool m_destroyed = false;
 
   public:
     Brick(int x, int y, int width, int height, BrickType type);
     ~Brick();
+    inline void decreaseLife()
+    {
+        if (m_life > 0)
+            m_life--;
+        if (m_life == 0)
+            m_destroyed = true;
+    }
+    inline bool isDestroyed() const { return m_destroyed; }
 
     void render(SDL_Renderer &renderer) const;
     inline SDL_Rect getRect() const { return m_rect; }

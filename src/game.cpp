@@ -4,11 +4,10 @@
 #include <utility>
 #include <vector>
 
-Game::Game(const std::string &title, const int width, const int height,
-           const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> ball,
+Game::Game(const std::string &title, const int width, const int height, const std::shared_ptr<Paddle> &paddle,
+           const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
            const SolveColision &solveColision)
-    : Window(title, width, height), m_paddle(std::make_shared<Paddle>(width / 2 - 50, height - 40, 80, 20, 10)),
-      m_bricks(bricks), m_ball(ball), m_solveColision(solveColision)
+    : Window(title, width, height), m_paddle(paddle), m_bricks(bricks), m_ball(ball), m_solveColision(solveColision)
 {
 }
 
@@ -59,6 +58,9 @@ void Game::render(double delta)
     // for units to be displayed
     m_solveColision.isColision(*m_ball, *m_paddle);
     m_ball->render(*m_renderer);
+    m_bricks.erase(
+        std::remove_if(m_bricks.begin(), m_bricks.end(), [](const auto &brick) { return brick->isDestroyed(); }),
+        m_bricks.end());
     for (auto &brick : m_bricks)
     {
         m_solveColision.isColision(*m_ball, *brick);

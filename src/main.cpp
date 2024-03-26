@@ -2,6 +2,7 @@
 #include "color.hpp"
 #include "entity/brick.hpp"
 #include "game.hpp"
+#include "game_manager.hpp"
 #include <cstdio>
 #include <memory>
 #include <random>
@@ -9,24 +10,11 @@
 
 int main(int argc, char const *argv[])
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dis(1, static_cast<int>(Brick::BrickType::TOTAL_ITEMS) - 1);
-
-    std::vector<std::shared_ptr<Brick>> bricks;
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
-            int random_number = dis(gen);
-            bricks.push_back(
-                std::make_shared<Brick>(i * 80, j * 40, 80, 40, static_cast<Brick::BrickType>(random_number)));
-        }
-    }
-    std::shared_ptr<Ball> ball = std::make_shared<Ball>(400, 300, 10, 0.01f, 0.02f);
-    SolveColision solveColision;
-    Game game("Breakout", 800, 600, bricks, ball, solveColision);
-    while (!game.isClosed())
-        game.loop();
+    const int width = 800;
+    const int height = 600;
+    const GameManager gameManager(width, height);
+    auto game = gameManager.getGame();
+    while (!game->isClosed())
+        game->loop();
     return 0;
 }

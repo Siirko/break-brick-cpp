@@ -32,10 +32,12 @@ class SolveColision
                  entity2.getType() == Collidable::CollidableType::BRICK)
         {
             auto &ball = dynamic_cast<Ball &>(entity1);
-            auto brick = dynamic_cast<Brick &>(entity2).getRect();
-            if (isColisionCircleRect(ball, brick))
+            auto &brick = dynamic_cast<Brick &>(entity2);
+            auto rect = brick.getRect();
+            if (isColisionCircleRect(ball, rect))
             {
                 ball.bounce();
+                brick.decreaseLife();
                 return true;
             }
         }

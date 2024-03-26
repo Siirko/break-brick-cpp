@@ -29,6 +29,8 @@ Brick::~Brick() {}
 
 void Brick::render(SDL_Renderer &renderer) const
 {
+    if (m_destroyed)
+        return;
     int res = SDL_SetRenderDrawColor(&renderer, m_color.r, m_color.g, m_color.b, m_color.a);
     checkSDL<int>(res, res == 0);
     res = SDL_RenderFillRect(&renderer, &m_rect);

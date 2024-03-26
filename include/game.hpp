@@ -16,9 +16,10 @@ class Game : public Window
     SolveColision m_solveColision;
 
   public:
-    Game(const std::string &title, const int width, const int height, const std::vector<std::shared_ptr<Brick>> &bricks,
-         const std::shared_ptr<Ball> ball, const SolveColision &solveColision);
-    ~Game();
+    Game(const std::string &title, const int width, const int height, const std::shared_ptr<Paddle> &padle,
+         const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
+         const SolveColision &solveColision);
+    virtual ~Game();
 
     void pollEvents(SDL_Event &event, const double delta) override;
     void clear() override;
