@@ -1,7 +1,8 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <cstdint>
-#include <format>
+#define FMT_HEADER_ONLY
+#include <fmt/format.h>
 #include <iostream>
 #include <memory>
 
@@ -10,9 +11,7 @@ template <typename T> inline void checkSDL(const T &result, const T &error)
 {
     if (result == error)
     {
-        std::cout << std::format("Failed to initialize SDL: %s", SDL_GetError()) << std::endl;
+        std::cout << fmt::format("Failed to initialize SDL: %s", SDL_GetError()) << std::endl;
         throw std::runtime_error("Failed to initialize SDL");
     }
 }
-
-

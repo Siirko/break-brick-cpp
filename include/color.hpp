@@ -1,6 +1,5 @@
 #pragma once
 #include <cstdint>
-#include <format>
 #include <iostream>
 
 class Color

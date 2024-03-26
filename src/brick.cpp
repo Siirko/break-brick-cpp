@@ -4,7 +4,6 @@
 Brick::Brick(int x, int y, int width, int height, BrickType type)
     : m_x(x), m_y(y), m_width(width), m_height(height), m_type(type), m_rect({m_x, m_y, m_width, m_height})
 {
-    std::cout << type << std::endl;
     switch (m_type)
     {
     case BrickType::NORMAL:
