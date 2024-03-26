@@ -17,11 +17,47 @@ bool SolveColision::isColisionRect(SDL_Rect &rect1, SDL_Rect &rect2)
            rect1.y + rect1.h > rect2.y;
 }
 
+double distanceSquared(int x1, int y1, int x2, int y2)
+{
+    int deltaX = x2 - x1;
+    int deltaY = y2 - y1;
+    return deltaX * deltaX + deltaY * deltaY;
+}
+
 bool SolveColision::isColisionCircleRect(Circle &circle, SDL_Rect &rect)
 {
-    int closestX = std::clamp(circle.getX(), rect.x, rect.x + rect.w);
-    int closestY = std::clamp(circle.getY(), rect.y, rect.y + rect.h);
-    int dx = circle.getX() - closestX;
-    int dy = circle.getY() - closestY;
-    return sqrt(dx * dx + dy * dy) < circle.getRadius();
+    int closestX, closestY;
+    // Find closest x offset
+    if (circle.getX() < rect.x)
+    {
+        closestX = rect.x;
+    }
+    else if (circle.getX() > rect.x + rect.w)
+    {
+        closestX = rect.x + rect.w;
+    }
+    else
+    {
+        closestX = circle.getX();
+    }
+
+    // Find closest y offset
+    if (circle.getY() < rect.y)
+    {
+        closestY = rect.y;
+    }
+    else if (circle.getY() > rect.y + rect.h)
+    {
+        closestY = rect.y + rect.h;
+    }
+    else
+    {
+        closestY = circle.getY();
+    }
+
+    // If the closest point is inside the circle
+    if (distanceSquared(circle.getX(), circle.getY(), closestX, closestY) < circle.getRadius() * circle.getRadius())
+        return true;
+
+    return false;
 }
