@@ -32,13 +32,11 @@ void GameManager::generateBricks(const int rows, const int columns, const int wi
 
 void GameManager::generateBall(const float x, const float y, const int radius, std::mt19937 gen)
 {
-    // generate random velocity for calculating an random
-    // angle for the ball
-    std::uniform_real_distribution<float> dis_angle(0.0f, 2 * M_PI);
-    // generate random angle
-    float angle = dis_angle(gen);
-    // calculate x and y velocity
-    float velocity_x = cos(angle) * 0.05f;
-    float velocity_y = sin(angle) * 0.05f;
+    // generate random value always facing down and not up
+    std::uniform_real_distribution<float> dis_x(-0.05, 0.05);
+    std::uniform_real_distribution<float> dis_y(0.03, 0.05);
+    float velocity_x = dis_x(gen);
+    float velocity_y = dis_y(gen);
+
     m_ball = std::make_shared<Ball>(x, y, radius, velocity_x, velocity_y);
 }

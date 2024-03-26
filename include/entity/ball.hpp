@@ -14,5 +14,5 @@ class Ball : public Circle, public Collidable
          Color color = Color::WHITE);
     void move(const double delta);
     void render(SDL_Renderer &renderer);
-    void bounce();
+    void bounce(float angle);
 };
