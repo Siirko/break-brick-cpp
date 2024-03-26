@@ -63,6 +63,8 @@ void Game::render(double delta)
         m_bricks.end());
     for (auto &brick : m_bricks)
     {
+        if (brick->isDestroyed())
+            continue;
         m_solveColision.isColision(*m_ball, *brick);
         brick->render(*m_renderer);
     }
