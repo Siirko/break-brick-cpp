@@ -5,9 +5,9 @@
 #include <vector>
 
 Game::Game(const std::string &title, const int width, const int height,
-           const std::vector<std::shared_ptr<Brick>> &bricks)
-    : Window(title, width, height), m_paddle(std::make_unique<Paddle>(width / 2, height - 50, 100, 20, 10)),
-      m_bricks(bricks)
+           const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> ball)
+    : Window(title, width, height), m_paddle(std::make_unique<Paddle>(width / 2, height - 40, 80, 20, 10)),
+      m_bricks(bricks), m_ball(ball)
 {
 }
 
@@ -58,5 +58,8 @@ void Game::render(double delta)
     // for units to be displayed
     for (auto &brick : m_bricks)
         brick->render(*m_renderer);
+    // for ball to be displayed
+    m_ball->render(*m_renderer);
+    // m_ball->move(delta);
     SDL_RenderPresent(m_renderer.get());
 }

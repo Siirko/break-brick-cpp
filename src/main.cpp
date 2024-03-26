@@ -22,7 +22,8 @@ int main(int argc, char const *argv[])
                 std::make_shared<Brick>(i * 80, j * 40, 80, 40, static_cast<Brick::BrickType>(random_number)));
         }
     }
-    Game game("Breakout", 800, 600, bricks);
+    std::shared_ptr<Ball> ball = std::make_shared<Ball>(400, 300, 10, 10);
+    Game game("Breakout", 800, 600, bricks, ball);
     while (!game.isClosed())
         game.loop();
     return 0;
