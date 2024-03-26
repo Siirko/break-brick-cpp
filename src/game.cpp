@@ -56,7 +56,6 @@ void Game::render(double delta)
     // for pink paddle
     m_paddle->render(*m_renderer);
     // for units to be displayed
-    // ......................
     for (auto &brick : m_bricks)
         brick->render(*m_renderer);
     SDL_RenderPresent(m_renderer.get());

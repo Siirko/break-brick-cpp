@@ -1,11 +1,11 @@
 #pragma once
+#include "collidable.hpp"
 #include "color.hpp"
 #include "utils.hpp"
 #include <SDL2/SDL.h>
 #include <map>
-// use dictionary order
 
-class Brick
+class Brick : public Collidable
 {
   public:
     enum BrickType
