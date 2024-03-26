@@ -7,11 +7,6 @@ Paddle::Paddle(const int x, const int y, const int width, const int height, cons
 
 Paddle::~Paddle() {}
 
-inline bool Paddle::collidesWindow(const int windowWidth, const int windowHeight) const
-{
-    return paddle.x >= 0 && paddle.x + paddle.w <= windowWidth;
-}
-
 void Paddle::moveLeft(const double delta) { this->paddle.x -= this->m_speed; }
 
 void Paddle::moveRight(const double delta) { this->paddle.x += this->m_speed; }
@@ -24,11 +19,11 @@ void Paddle::render(SDL_Renderer &renderer)
     checkSDL<int>(res, res == 0);
     int width, height;
     SDL_GetRendererOutputSize(&renderer, &width, &height);
-    if (!collidesWindow(width, height))
+    if (!isWindowColliding(paddle.x, paddle.y, paddle.w, paddle.h, width, height))
     {
         if (paddle.x < 0)
             this->paddle.x = 0;
-        else if (paddle.x + paddle.w > 800)
-            paddle.x = 800 - paddle.w;
+        else if (paddle.x + paddle.w > width)
+            paddle.x = width - paddle.w;
     }
 }
