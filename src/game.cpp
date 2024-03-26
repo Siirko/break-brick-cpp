@@ -2,8 +2,12 @@
 #include <iostream>
 #include <stdexcept>
 #include <utility>
-Game::Game(const std::string &title, const int width, const int height)
-    : Window(title, width, height), m_paddle(std::make_unique<Paddle>(width / 2, height - 50, 100, 20, 10))
+#include <vector>
+
+Game::Game(const std::string &title, const int width, const int height,
+           const std::vector<std::shared_ptr<Brick>> &bricks)
+    : Window(title, width, height), m_paddle(std::make_unique<Paddle>(width / 2, height - 50, 100, 20, 10)),
+      m_bricks(bricks)
 {
 }
 
@@ -53,5 +57,7 @@ void Game::render(double delta)
     m_paddle->render(*m_renderer);
     // for units to be displayed
     // ......................
+    for (auto &brick : m_bricks)
+        brick->render(*m_renderer);
     SDL_RenderPresent(m_renderer.get());
 }

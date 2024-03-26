@@ -1,5 +1,5 @@
 CC := clang++
-CFLAGS ?= -Wall -g -Werror -std=c++20
+CFLAGS ?= -Wall -g -std=c++20
 LDLIBS ?= -lm -lSDL2 -lSDL2_image -lSDL2_ttf
 
 EXEC = break-brick

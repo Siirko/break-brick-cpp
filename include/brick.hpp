@@ -14,6 +14,7 @@ class Brick
         HARD,
         HARDENED,
         UNBREAKABLE,
+        TOTAL_ITEMS
     };
 
   private:
@@ -21,11 +22,15 @@ class Brick
     int m_y;
     int m_width;
     int m_height;
-    Color m_color;
+    // default value
+    Color m_color = Color(Color::WHITE);
     BrickType m_type;
+    SDL_Rect m_rect;
+    int m_life;
+    bool m_destroyed;
 
   public:
-    Brick(int x, int y, int width, int height, Color color, BrickType type);
+    Brick(int x, int y, int width, int height, BrickType type);
     ~Brick();
 
     void render(SDL_Renderer &renderer) const;
