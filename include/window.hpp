@@ -7,10 +7,13 @@
 #include <memory>
 #include <string>
 
-struct Clock
+class Clock
 {
+  private:
     uint64_t now = SDL_GetPerformanceCounter();
     uint64_t last = 0;
+
+  public:
     double delta = 0;
     void tick()
     {
@@ -29,7 +32,7 @@ class Window
     bool m_closed;
     std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> m_window;
     std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> m_renderer;
-    struct Clock m_clock;
+    Clock m_clock;
 
   public:
     Window(const std::string &title, const int width, const int height);

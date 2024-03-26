@@ -1,7 +1,7 @@
 #include "paddle.hpp"
 
 Paddle::Paddle(const int x, const int y, const int width, const int height, const int speed)
-    : paddle{x, y, width, height}, m_speed(speed), m_color("FF00FF")
+    : paddle{x, y, width, height}, m_speed(speed), m_color(Color::YELLOW)
 {
 }
 
