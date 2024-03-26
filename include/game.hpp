@@ -1,7 +1,8 @@
 #pragma once
-#include "ball.hpp"
-#include "brick.hpp"
-#include "paddle.hpp"
+#include "colision/solve_colision.hpp"
+#include "entity/ball.hpp"
+#include "entity/brick.hpp"
+#include "entity/paddle.hpp"
 #include "window.hpp"
 
 #include <memory>
@@ -9,13 +10,14 @@
 class Game : public Window
 {
   private:
-    std::unique_ptr<Paddle> m_paddle;
+    std::shared_ptr<Paddle> m_paddle;
     std::vector<std::shared_ptr<Brick>> m_bricks;
     std::shared_ptr<Ball> m_ball;
+    SolveColision m_solveColision;
 
   public:
     Game(const std::string &title, const int width, const int height, const std::vector<std::shared_ptr<Brick>> &bricks,
-         const std::shared_ptr<Ball> ball);
+         const std::shared_ptr<Ball> ball, const SolveColision &solveColision);
     ~Game();
 
     void pollEvents(SDL_Event &event, const double delta) override;

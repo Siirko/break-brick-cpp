@@ -1,9 +1,11 @@
 #pragma once
-#include "collidable.hpp"
+#include "colision/collidable.hpp"
 #include "color.hpp"
 #include "utils.hpp"
 #include <SDL2/SDL.h>
 #include <map>
+#include <memory>
+#include <ostream>
 
 class Brick : public Collidable
 {
@@ -34,4 +36,8 @@ class Brick : public Collidable
     ~Brick();
 
     void render(SDL_Renderer &renderer) const;
+    inline SDL_Rect getRect() const { return m_rect; }
+    operator SDL_Rect() const { return m_rect; }
+    operator SDL_Rect &() { return m_rect; }
+    friend std::ostream &operator<<(std::ostream &os, const Brick &brick);
 };

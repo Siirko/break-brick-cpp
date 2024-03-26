@@ -1,11 +1,12 @@
 #pragma once
-#include "collidable.hpp"
+#include "colision/collidable.hpp"
 #include "color.hpp"
+#include "primitive/circle.hpp"
 #include <SDL2/SDL.h>
-class Ball : public Collidable
+class Ball : public Circle, public Collidable
 {
   private:
-    int m_x, m_y, m_radius, m_speed;
+    int m_speed;
     Color m_color;
 
   public:

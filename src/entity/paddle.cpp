@@ -1,7 +1,7 @@
-#include "paddle.hpp"
+#include "entity/paddle.hpp"
 
 Paddle::Paddle(const int x, const int y, const int width, const int height, const int speed)
-    : Collidable(), paddle{x, y, width, height}, m_speed(speed), m_color(Color::YELLOW)
+    : Collidable(CollidableType::PADDLE), paddle{x, y, width, height}, m_speed(speed), m_color(Color::YELLOW)
 {
 }
 

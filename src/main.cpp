@@ -1,5 +1,6 @@
-#include "brick.hpp"
+#include "colision/solve_colision.hpp"
 #include "color.hpp"
+#include "entity/brick.hpp"
 #include "game.hpp"
 #include <cstdio>
 #include <memory>
@@ -23,7 +24,8 @@ int main(int argc, char const *argv[])
         }
     }
     std::shared_ptr<Ball> ball = std::make_shared<Ball>(400, 300, 10, 10);
-    Game game("Breakout", 800, 600, bricks, ball);
+    SolveColision solveColision;
+    Game game("Breakout", 800, 600, bricks, ball, solveColision);
     while (!game.isClosed())
         game.loop();
     return 0;

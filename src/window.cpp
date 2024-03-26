@@ -1,4 +1,6 @@
 #include "window.hpp"
+#include "entity/ball.hpp"
+#include "entity/paddle.hpp"
 #include "utils.hpp"
 #include <iostream>
 #include <stdexcept>

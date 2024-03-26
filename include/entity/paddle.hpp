@@ -1,5 +1,5 @@
 #pragma once
-#include "collidable.hpp"
+#include "colision/collidable.hpp"
 #include "color.hpp"
 #include "utils.hpp"
 #include <SDL2/SDL.h>
@@ -18,4 +18,8 @@ class Paddle : public Collidable
     void moveLeft(const double delta);
     void moveRight(const double delta);
     void render(SDL_Renderer &renderer);
+    const inline SDL_Rect getRect() const { return paddle; }
+
+    operator SDL_Rect() const { return paddle; }
+    operator SDL_Rect &() { return paddle; }
 };
