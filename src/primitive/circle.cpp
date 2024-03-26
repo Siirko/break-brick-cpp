@@ -1,6 +1,6 @@
 #include "primitive/circle.hpp"
 #include "utils.hpp"
-Circle::Circle(const int x, const int y, const int radius) : m_x(x), m_y(y), m_radius(radius) {}
+Circle::Circle(const float x, const float y, const int radius) : m_x(x), m_y(y), m_radius(radius) {}
 
 Circle::~Circle() {}
 

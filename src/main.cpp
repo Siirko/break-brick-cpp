@@ -23,7 +23,7 @@ int main(int argc, char const *argv[])
                 std::make_shared<Brick>(i * 80, j * 40, 80, 40, static_cast<Brick::BrickType>(random_number)));
         }
     }
-    std::shared_ptr<Ball> ball = std::make_shared<Ball>(400, 300, 10, 10);
+    std::shared_ptr<Ball> ball = std::make_shared<Ball>(400, 300, 10, 0.01f, 0.02f);
     SolveColision solveColision;
     Game game("Breakout", 800, 600, bricks, ball, solveColision);
     while (!game.isClosed())

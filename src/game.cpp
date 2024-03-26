@@ -7,7 +7,7 @@
 Game::Game(const std::string &title, const int width, const int height,
            const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> ball,
            const SolveColision &solveColision)
-    : Window(title, width, height), m_paddle(std::make_shared<Paddle>(width / 2, height - 40, 80, 20, 10)),
+    : Window(title, width, height), m_paddle(std::make_shared<Paddle>(width / 2 - 50, height - 40, 80, 20, 10)),
       m_bricks(bricks), m_ball(ball), m_solveColision(solveColision)
 {
 }
@@ -57,14 +57,14 @@ void Game::render(double delta)
     // for pink paddle
     m_paddle->render(*m_renderer);
     // for units to be displayed
-    std::cout << m_solveColision.isColision(*m_ball, *m_paddle) << std::endl;
+    m_solveColision.isColision(*m_ball, *m_paddle);
     m_ball->render(*m_renderer);
     for (auto &brick : m_bricks)
     {
-        // m_solveColision.isColision(*m_ball, *brick);
+        m_solveColision.isColision(*m_ball, *brick);
         brick->render(*m_renderer);
     }
-    // for ball to be displayed
-    // m_ball->move(delta);
+
+    m_ball->move(delta);
     SDL_RenderPresent(m_renderer.get());
 }

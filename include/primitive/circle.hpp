@@ -4,10 +4,11 @@
 class Circle
 {
   protected:
-    int m_x, m_y, m_radius;
+    float m_x, m_y;
+    int m_radius;
 
   public:
-    Circle(const int x, const int y, const int radius);
+    Circle(const float x, const float y, const int radius);
     ~Circle();
     void drawCircle(SDL_Renderer &renderer, const int x, const int y, const int radius);
     void drawFilledCircle(SDL_Renderer &renderer, const int x, const int y, const int radius);

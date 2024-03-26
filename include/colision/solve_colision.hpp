@@ -22,14 +22,22 @@ class SolveColision
         {
             auto &ball = dynamic_cast<Ball &>(entity1);
             auto paddle = dynamic_cast<Paddle &>(entity2).getRect();
-            return isColisionCircleRect(ball, paddle);
+            if (isColisionCircleRect(ball, paddle))
+            {
+                ball.bounce();
+                return true;
+            }
         }
         else if (entity1.getType() == Collidable::CollidableType::BALL &&
                  entity2.getType() == Collidable::CollidableType::BRICK)
         {
             auto &ball = dynamic_cast<Ball &>(entity1);
             auto brick = dynamic_cast<Brick &>(entity2).getRect();
-            return isColisionCircleRect(ball, brick);
+            if (isColisionCircleRect(ball, brick))
+            {
+                ball.bounce();
+                return true;
+            }
         }
         return false;
     }

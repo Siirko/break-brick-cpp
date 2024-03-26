@@ -6,11 +6,13 @@
 class Ball : public Circle, public Collidable
 {
   private:
-    int m_speed;
+    float m_velocity_x, m_velocity_y;
     Color m_color;
 
   public:
-    Ball(const int x, const int y, const int radius, const int speed, Color color = Color(Color::WHITE));
+    Ball(const float x, const float y, const int radius, const float velocity_x, const float velocity_y,
+         Color color = Color::WHITE);
     void move(const double delta);
     void render(SDL_Renderer &renderer);
+    void bounce();
 };

@@ -13,7 +13,7 @@ SOURCES := $(filter-out $(SRC_PATH)/main.cpp, $(wildcard $(SRC_PATH)/*.cpp $(SRC
 INCLUDES := $(wildcard $(INCLUDE_PATH)/*.hpp $(INCLUDE_PATH)/*/*.hpp $(INCLUDE_PATH)/*/*/*.hpp)
 OBJECTS  := $(SOURCES:$(SRC_PATH)/%.cpp=$(OBJ_PATH)/%.o)
 
-all: clean
+all: 
 	$(MAKE) $(BIN_PATH)/$(EXEC)
 
 test: all
