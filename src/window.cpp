@@ -27,7 +27,7 @@ void Window::loop()
     {
         clear();
         m_clock.tick();
-        pollEvents(event, m_clock.delta);
+        handleEvents(event, m_clock.delta);
         render(m_clock.delta);
     }
 }

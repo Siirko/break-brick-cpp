@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 
+#include "event.hpp"
 class Clock
 {
   private:
@@ -37,9 +38,9 @@ class Window
     Window(const std::string &title, const int width, const int height);
     ~Window();
 
-    virtual void pollEvents(SDL_Event &event, const double delta) = 0;
     virtual void clear() = 0;
     virtual void render(double delta) = 0;
+    virtual void handleEvents(SDL_Event &event, const double delta) = 0;
     void loop();
 
     inline bool isClosed() const { return m_closed; }

@@ -13,34 +13,34 @@ Game::Game(const std::string &title, const int width, const int height, const st
 
 Game::~Game() {}
 
-void Game::pollEvents(SDL_Event &event, const double delta)
+void Game::handleEvents(SDL_Event &event, const double delta)
 {
     if (SDL_PollEvent(&event))
     {
-        switch (event.type)
+        this->pollEvents(event, delta);
+        m_paddle->pollEvents(event, delta);
+    }
+}
+
+void Game::pollEvents(SDL_Event &event, const double delta)
+{
+    switch (event.type)
+    {
+    case SDL_QUIT:
+        m_closed = true;
+        break;
+    case SDL_KEYDOWN:
+        switch (event.key.keysym.sym)
         {
-        case SDL_QUIT:
-            this->m_closed = true;
-            break;
-        case SDL_KEYDOWN:
-            switch (event.key.keysym.sym)
-            {
-            case SDLK_ESCAPE:
-                this->m_closed = true;
-                break;
-            case SDLK_LEFT:
-                m_paddle->moveLeft(delta);
-                break;
-            case SDLK_RIGHT:
-                m_paddle->moveRight(delta);
-                break;
-            default:
-                break;
-            }
+        case SDLK_ESCAPE:
+            m_closed = true;
             break;
         default:
             break;
         }
+        break;
+    default:
+        break;
     }
 }
 
@@ -61,6 +61,7 @@ void Game::render(double delta)
     m_bricks.erase(
         std::remove_if(m_bricks.begin(), m_bricks.end(), [](const auto &brick) { return brick->isDestroyed(); }),
         m_bricks.end());
+    // check colision with bricks and render them
     for (auto &brick : m_bricks)
     {
         if (brick->isDestroyed())
@@ -68,7 +69,7 @@ void Game::render(double delta)
         m_solveColision.isColision(*m_ball, *brick);
         brick->render(*m_renderer);
     }
-
+    // for ball to move
     m_ball->move(delta);
     SDL_RenderPresent(m_renderer.get());
 }

@@ -27,3 +27,21 @@ void Paddle::render(SDL_Renderer &renderer)
             paddle.x = width - paddle.w;
     }
 }
+
+void Paddle::pollEvents(SDL_Event &event, const double delta)
+{
+    if (event.type == SDL_KEYDOWN)
+    {
+        switch (event.key.keysym.sym)
+        {
+        case SDLK_LEFT:
+            moveLeft(delta);
+            break;
+        case SDLK_RIGHT:
+            moveRight(delta);
+            break;
+        default:
+            break;
+        }
+    }
+}

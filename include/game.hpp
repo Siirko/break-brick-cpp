@@ -4,10 +4,9 @@
 #include "entity/brick.hpp"
 #include "entity/paddle.hpp"
 #include "window.hpp"
-
 #include <memory>
 #include <vector>
-class Game : public Window
+class Game : public Window, public Event
 {
   private:
     std::shared_ptr<Paddle> m_paddle;
@@ -21,6 +20,7 @@ class Game : public Window
          const SolveColision &solveColision);
     virtual ~Game();
 
+    void handleEvents(SDL_Event &event, const double delta) override;
     void pollEvents(SDL_Event &event, const double delta) override;
     void clear() override;
     void render(double delta) override;
