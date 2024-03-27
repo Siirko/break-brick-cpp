@@ -2,8 +2,8 @@
 #include <random>
 
 Brick::Brick(int x, int y, int width, int height, BrickType type)
-    : Collidable(CollidableType::BRICK), m_x(x), m_y(y), m_width(width), m_height(height), m_type(type),
-      m_rect({m_x, m_y, m_width, m_height})
+    : Collidable(CollidableType::BRICK), m_width(width), m_height(height), m_position(Vector2f(x, y)), m_type(type),
+      m_rect({x, y, width, height})
 {
     m_life = m_type;
     switch (m_type)
@@ -39,7 +39,7 @@ void Brick::render(SDL_Renderer &renderer) const
 
 std::ostream &operator<<(std::ostream &os, const Brick &brick)
 {
-    os << "Brick [x=" << brick.m_x << ", y=" << brick.m_y << ", width=" << brick.m_width
+    os << "Brick [x=" << brick.m_position.x << ", y=" << brick.m_position.y << ", width=" << brick.m_width
        << ", height=" << brick.m_height << ", life=" << brick.m_life << ", destroyed=" << brick.m_destroyed << "]";
     return os;
 }

@@ -2,6 +2,7 @@
 #include "colision/collidable.hpp"
 #include "color.hpp"
 #include "utils.hpp"
+#include "vector2.hpp"
 #include <SDL2/SDL.h>
 #include <map>
 #include <memory>
@@ -20,10 +21,9 @@ class Brick : public Collidable
     };
 
   private:
-    int m_x;
-    int m_y;
     int m_width;
     int m_height;
+    Vector2f m_position;
     // default value
     Color m_color = Color(Color::WHITE);
     BrickType m_type;
@@ -42,7 +42,7 @@ class Brick : public Collidable
             m_destroyed = true;
     }
     inline bool isDestroyed() const { return m_destroyed; }
-
+    const inline Vector2f &getPosition() const { return m_position; }
     void render(SDL_Renderer &renderer) const;
     inline SDL_Rect getRect() const { return m_rect; }
     operator SDL_Rect() const { return m_rect; }

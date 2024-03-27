@@ -1,15 +1,24 @@
 #include "entity/paddle.hpp"
 
 Paddle::Paddle(const int x, const int y, const int width, const int height, const int speed)
-    : Collidable(CollidableType::PADDLE), paddle{x, y, width, height}, m_speed(speed), m_color(Color::YELLOW)
+    : Collidable(CollidableType::PADDLE), paddle{x, y, width, height}, m_speed(speed), m_color(Color::YELLOW),
+      m_position(Vector2f(x, y))
 {
 }
 
 Paddle::~Paddle() {}
 
-void Paddle::moveLeft(const double delta) { this->paddle.x -= this->m_speed; }
+void Paddle::moveLeft(const double delta)
+{
+    this->paddle.x -= this->m_speed;
+    m_position.x -= m_speed;
+}
 
-void Paddle::moveRight(const double delta) { this->paddle.x += this->m_speed; }
+void Paddle::moveRight(const double delta)
+{
+    this->paddle.x += this->m_speed;
+    m_position.x += m_speed;
+}
 
 void Paddle::render(SDL_Renderer &renderer)
 {

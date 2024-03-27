@@ -12,6 +12,7 @@ class Ball : public Circle, public Collidable
   public:
     Ball(const float x, const float y, const int radius, const float velocity_x, const float velocity_y,
          Color color = Color::WHITE);
+    const inline Vector2f &getPosition() const { return m_position; }
     void move(const double delta);
     void render(SDL_Renderer &renderer);
     void bounce(int x, int y);

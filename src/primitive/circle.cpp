@@ -1,11 +1,15 @@
 #include "primitive/circle.hpp"
 #include "utils.hpp"
-Circle::Circle(const float x, const float y, const int radius) : m_x(x), m_y(y), m_radius(radius) {}
+Circle::Circle(const float x, const float y, const int radius) : m_position(x, y), m_radius(radius) {}
 
 Circle::~Circle() {}
 
-void Circle::drawCircle(SDL_Renderer &renderer, const int x, const int y, const int radius)
+void Circle::drawCircle(SDL_Renderer &renderer)
 {
+    int x = getX();
+    int y = getY();
+    int radius = getRadius();
+
     int offsetx, offsety, d;
     int status;
 
@@ -53,8 +57,11 @@ void Circle::drawCircle(SDL_Renderer &renderer, const int x, const int y, const 
     checkSDL<int>(status, status == 0);
 }
 
-void Circle::drawFilledCircle(SDL_Renderer &renderer, int x, int y, int radius)
+void Circle::drawFilledCircle(SDL_Renderer &renderer)
 {
+    int x = getX();
+    int y = getY();
+    int radius = getRadius();
     int offsetx, offsety, d;
     int status;
 
