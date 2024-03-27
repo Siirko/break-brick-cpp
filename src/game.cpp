@@ -15,14 +15,15 @@ Game::~Game() {}
 
 void Game::handleEvents(SDL_Event &event, const double delta)
 {
-    if (SDL_PollEvent(&event))
+    while (SDL_PollEvent(&event))
     {
-        this->pollEvents(event, delta);
-        m_paddle->pollEvents(event, delta);
+        this->pollEvents(event);
+        m_paddle->pollEvents(event);
     }
+    m_paddle->applyEvents(delta);
 }
 
-void Game::pollEvents(SDL_Event &event, const double delta)
+void Game::pollEvents(SDL_Event &event)
 {
     switch (event.type)
     {

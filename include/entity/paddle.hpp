@@ -9,22 +9,23 @@
 class Paddle : public Collidable, public Event
 {
   private:
-    SDL_Rect paddle;
-    int m_speed;
+    SDL_Rect m_paddle;
+    float m_speed;
     Color m_color;
     Vector2f m_position;
 
   public:
-    Paddle(const int x, const int y, const int width, const int height, const int speed);
+    Paddle(const int x, const int y, const int width, const int height, const float speed);
     ~Paddle();
 
     void moveLeft(const double delta);
     void moveRight(const double delta);
     void render(SDL_Renderer &renderer);
-    const inline SDL_Rect getRect() const { return paddle; }
+    const inline SDL_Rect getRect() const { return m_paddle; }
     const inline Vector2f &getPosition() const { return m_position; }
-    operator SDL_Rect() const { return paddle; }
-    operator SDL_Rect &() { return paddle; }
+    operator SDL_Rect() const { return m_paddle; }
+    operator SDL_Rect &() { return m_paddle; }
 
-    void pollEvents(SDL_Event &event, const double delta) override;
+    void pollEvents(SDL_Event &event) override;
+    void applyEvents(const double delta) override;
 };

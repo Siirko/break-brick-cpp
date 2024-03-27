@@ -21,7 +21,7 @@ class Game : public Window, public Event
     virtual ~Game();
 
     void handleEvents(SDL_Event &event, const double delta) override;
-    void pollEvents(SDL_Event &event, const double delta) override;
+    void pollEvents(SDL_Event &event) override;
     void clear() override;
     void render(double delta) override;
 };

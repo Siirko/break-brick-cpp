@@ -11,7 +11,7 @@ Window::Window(const std::string &title, const int width, const int height)
     : m_title(title), m_width(width), m_height(height), m_closed(false),
       m_window(SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0),
                SDL_DestroyWindow),
-      m_renderer(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED), SDL_DestroyRenderer)
+      m_renderer(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_PRESENTVSYNC), SDL_DestroyRenderer)
 {
     // needs to check if checkSDL can handle this case
     int result = SDL_Init(SDL_INIT_VIDEO);

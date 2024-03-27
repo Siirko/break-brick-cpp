@@ -1,13 +1,14 @@
 #pragma once
 #include <cmath>
 #include <cstdint>
+#include <iostream>
 #include <memory>
 
 template <class Num_T> class Vector2
 {
   private:
-    constexpr float DEG2RAD(float deg) { return deg * M_PI / 180.f; }
-    constexpr float RAD2DEG(float rad) { return rad * 180.f / M_PI; }
+    inline float DEG2RAD(float deg) const { return deg * M_PI / 180.f; }
+    inline float RAD2DEG(float rad) const { return rad * 180.f / M_PI; }
 
   public:
     Vector2();
@@ -34,24 +35,30 @@ template <class Num_T> class Vector2
     operator Vector2<float>() const;
     operator Vector2<float *>() const;
 
+    friend std::ostream &operator<<(std::ostream &os, const Vector2 &v)
+    {
+        os << "Vector2(" << v.x << ", " << v.y << ")";
+        return os;
+    }
+
   public:
-    Vector2 Rotate(float angle) const;
-    void RotateIp(float angle);
+    Vector2 rotate(float angle) const;
+    void rotateIp(float angle);
 
-    float AngleTo(const Vector2 &other) const;
-    float AngleTo(Num_T x, Num_T y) const;
+    float angleTo(const Vector2 &other) const;
+    float angleTo(Num_T x, Num_T y) const;
 
-    Vector2<float> Normalize() const;
-    void NormalizeIp();
+    Vector2<float> normalize() const;
+    void normalizeIp();
 
-    float Dot(const Vector2 &other) const;
-    float Dot(Num_T x, Num_T y) const;
+    float dot(const Vector2 &other) const;
+    float dot(Num_T x, Num_T y) const;
 
-    float DistanceTo(const Vector2 &other) const;
-    float DistanceTo(Num_T x, Num_T y) const;
+    float distanceTo(const Vector2 &other) const;
+    float distanceTo(Num_T x, Num_T y) const;
 
-    float Length() const;
-    float LengthSquared() const;
+    float length() const;
+    float lengthSquared() const;
 
   public:
     Num_T x;
@@ -115,7 +122,7 @@ template <class Num_T> Vector2<Num_T>::operator Vector2<uint32_t>() const
 
 // template <class Num_T> Vector2<Num_T>::operator Vector2<float *>() const { return {&x, &y}; }
 
-template <class Num_T> Vector2<Num_T> Vector2<Num_T>::Rotate(float angle) const
+template <class Num_T> Vector2<Num_T> Vector2<Num_T>::rotate(float angle) const
 {
     angle = fmod(angle, 360.f);
     angle = DEG2RAD(angle);
@@ -126,51 +133,51 @@ template <class Num_T> Vector2<Num_T> Vector2<Num_T>::Rotate(float angle) const
     float tmpY = (sinAngle * x + cosAngle * y);
     return Vector2<Num_T>(tmpX, tmpY);
 }
-template <class Num_T> void Vector2<Num_T>::RotateIp(float angle)
+template <class Num_T> void Vector2<Num_T>::rotateIp(float angle)
 {
-    Vector2<float> newV = Rotate(angle);
+    Vector2<float> newV = rotate(angle);
     x = newV.x;
     y = newV.y;
 }
 
-template <class Num_T> float Vector2<Num_T>::AngleTo(const Vector2 &other) const { return AngleTo(other.x, other.y); }
-template <class Num_T> float Vector2<Num_T>::AngleTo(Num_T x, Num_T y) const
+template <class Num_T> float Vector2<Num_T>::angleTo(const Vector2 &other) const { return angleTo(other.x, other.y); }
+template <class Num_T> float Vector2<Num_T>::angleTo(Num_T x, Num_T y) const
 {
-    return RAD2DEG(atan2(y, x) - atan2(this->y, this->x));
+    auto v = RAD2DEG(atan2(std::abs(y - this->y), std::abs(x - this->x)));
+    return v;
 }
 
-template <class Num_T> Vector2<float> Vector2<Num_T>::Normalize() const
+template <class Num_T> Vector2<float> Vector2<Num_T>::normalize() const
 {
-    float s = Length();
+    float s = length();
     if (s == 0.f)
     {
         return {0.f, 0.f};
     }
     return {x / s, y / s};
 }
-template <class Num_T> void Vector2<Num_T>::NormalizeIp()
+template <class Num_T> void Vector2<Num_T>::normalizeIp()
 {
-    Vector2<float> newV = Normalize();
+    Vector2<float> newV = normalize();
     x = newV.x;
     y = newV.y;
 }
 
-template <class Num_T> float Vector2<Num_T>::Dot(const Vector2 &other) const { return Dot(other.x, other.y); }
-template <class Num_T> float Vector2<Num_T>::Dot(Num_T x, Num_T y) const { return (this->x * x) + (this->y * y); }
+template <class Num_T> float Vector2<Num_T>::dot(const Vector2 &other) const { return dot(other.x, other.y); }
+template <class Num_T> float Vector2<Num_T>::dot(Num_T x, Num_T y) const { return (this->x * x) + (this->y * y); }
 
-template <class Num_T> float Vector2<Num_T>::DistanceTo(const Vector2 &other) const
+template <class Num_T> float Vector2<Num_T>::distanceTo(const Vector2 &other) const
 {
-    return DistanceTo(other.x, other.y);
+    return distanceTo(other.x, other.y);
 }
-template <class Num_T> float Vector2<Num_T>::DistanceTo(Num_T x, Num_T y) const
+template <class Num_T> float Vector2<Num_T>::distanceTo(Num_T x, Num_T y) const
 {
     return sqrtf(powf(this->x - x, 2.0f) + powf(this->y - y, 2.0f));
 }
 
-template <class Num_T> float Vector2<Num_T>::Length() const { return sqrtf(LengthSquared()); }
-template <class Num_T> float Vector2<Num_T>::LengthSquared() const { return x * x + y * y; }
+template <class Num_T> float Vector2<Num_T>::length() const { return sqrtf(lengthSquared()); }
+template <class Num_T> float Vector2<Num_T>::lengthSquared() const { return x * x + y * y; }
 
 typedef Vector2<int32_t> Vector2i;
 typedef Vector2<uint32_t> Vector2u;
 typedef Vector2<float> Vector2f;
-typedef Vector2<std::shared_ptr<float>> Vector2fp;
