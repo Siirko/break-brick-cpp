@@ -13,12 +13,23 @@ void Ball::move(const double delta)
     m_y += m_velocity_y;
 }
 
-void Ball::bounce(float wall_angle)
+void Ball::bounce(int x, int y)
 {
-    float angle = angleOfLine(m_x, m_y, m_x + m_velocity_x, m_y + m_velocity_y);
-    float new_angle = 2 * wall_angle - angle;
-    m_velocity_x = cos(new_angle) * 0.05;
-    m_velocity_y = sin(new_angle) * 0.05;
+    float paddle_angle = angleOfLine(m_x, m_y, x, y);
+    // wall_angle is in degree, calculate the angle of the ball after bouncing
+    float angle = 2 * paddle_angle - 180 - angleOfLine(0, 0, m_velocity_x, m_velocity_y);
+    // convert degree to radian
+    // angle = angle * M_PI / 180;
+    m_velocity_x = cos(angle) * -0.05;
+    m_velocity_y = sin(angle) * -0.05;
+}
+
+inline void Ball::bounceWindow(int width, int height)
+{
+    if (m_x - m_radius < 0 || m_x + m_radius > width)
+        m_velocity_x = -m_velocity_x;
+    if (m_y - m_radius < 0 || m_y + m_radius > height)
+        m_velocity_y = -m_velocity_y;
 }
 
 void Ball::render(SDL_Renderer &renderer)
@@ -28,12 +39,5 @@ void Ball::render(SDL_Renderer &renderer)
     drawFilledCircle(renderer, m_x, m_y, m_radius);
     int width, height;
     SDL_GetRendererOutputSize(&renderer, &width, &height);
-    if (m_x - m_radius < 0 || m_x + m_radius > width)
-    {
-        m_velocity_x = -m_velocity_x;
-    }
-    if (m_y - m_radius < 0 || m_y + m_radius > height)
-    {
-        m_velocity_y = -m_velocity_y;
-    }
+    bounceWindow(width, height);
 }
