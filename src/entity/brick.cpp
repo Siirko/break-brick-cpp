@@ -6,23 +6,7 @@ Brick::Brick(int x, int y, int width, int height, BrickType type)
       m_rect({x, y, width, height})
 {
     m_life = m_type;
-    switch (m_type)
-    {
-    case BrickType::NORMAL:
-        m_color = Color(Color::RED);
-        break;
-    case BrickType::HARD:
-        m_color = Color(Color::GREEN);
-        break;
-    case BrickType::HARDENED:
-        m_color = Color(Color::BLUE);
-        break;
-    case BrickType::UNBREAKABLE:
-        m_color = Color(Color::YELLOW);
-        break;
-    default:
-        throw std::invalid_argument("Invalid brick type");
-    }
+    m_color = brickTypeMap[m_type];
 }
 
 Brick::~Brick() {}
@@ -35,6 +19,17 @@ void Brick::render(SDL_Renderer &renderer) const
     checkSDL<int>(res, res == 0);
     res = SDL_RenderFillRect(&renderer, &m_rect);
     checkSDL<int>(res, res == 0);
+}
+
+void Brick::decreaseLife()
+{
+    if (m_life > 0)
+    {
+        m_color.a = m_color.a / m_life;
+        m_life--;
+    }
+    if (m_life == 0)
+        m_destroyed = true;
 }
 
 std::ostream &operator<<(std::ostream &os, const Brick &brick)

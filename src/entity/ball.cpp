@@ -35,7 +35,7 @@ void Ball::bouncePaddle(Vector2f paddle)
     // std::cout << fmt::format("{}: {} {}\n", count++, angle.x, angle.y);
 }
 
-inline void Ball::bounceWindow(int width, int height)
+void Ball::bounceWindow(int width, int height)
 {
     if (m_position.x - m_radius < 0 || m_position.x + m_radius > width)
         m_velocity_x = -m_velocity_x;
@@ -48,7 +48,4 @@ void Ball::render(SDL_Renderer &renderer)
     int res = SDL_SetRenderDrawColor(&renderer, m_color.r, m_color.g, m_color.b, m_color.a);
     checkSDL<int>(res, res == 0);
     drawFilledCircle(renderer);
-    int width, height;
-    SDL_GetRendererOutputSize(&renderer, &width, &height);
-    bounceWindow(width, height);
 }

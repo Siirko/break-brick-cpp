@@ -13,11 +13,12 @@ Window::Window(const std::string &title, const int width, const int height)
                SDL_DestroyWindow),
       m_renderer(SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_PRESENTVSYNC), SDL_DestroyRenderer)
 {
-    // needs to check if checkSDL can handle this case
     int result = SDL_Init(SDL_INIT_VIDEO);
     checkSDL<int>(result, result == 0);
     checkSDL<SDL_Window *>(this->m_window.get(), nullptr);
     checkSDL<SDL_Renderer *>(this->m_renderer.get(), nullptr);
+    result = SDL_SetRenderDrawBlendMode(this->m_renderer.get(), SDL_BLENDMODE_BLEND);
+    checkSDL<int>(result, result == 0);
 }
 
 void Window::loop()

@@ -20,6 +20,11 @@ class Brick : public Collidable
         TOTAL_ITEMS
     };
 
+    std::map<BrickType, Color::ColorType> brickTypeMap = {{BrickType::NORMAL, Color::GREEN},
+                                                          {BrickType::HARD, Color::RED},
+                                                          {BrickType::HARDENED, Color::BLUE},
+                                                          {BrickType::UNBREAKABLE, Color::YELLOW}};
+
   private:
     int m_width;
     int m_height;
@@ -34,13 +39,7 @@ class Brick : public Collidable
   public:
     Brick(int x, int y, int width, int height, BrickType type);
     ~Brick();
-    inline void decreaseLife()
-    {
-        if (m_life > 0)
-            m_life--;
-        if (m_life == 0)
-            m_destroyed = true;
-    }
+    void decreaseLife();
     inline bool isDestroyed() const { return m_destroyed; }
     const inline Vector2f &getPosition() const { return m_position; }
     void render(SDL_Renderer &renderer) const;

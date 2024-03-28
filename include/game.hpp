@@ -13,6 +13,7 @@ class Game : public Window, public Event
     std::vector<std::shared_ptr<Brick>> m_bricks;
     std::shared_ptr<Ball> m_ball;
     SolveColision m_solveColision;
+    Color m_background_color;
 
   public:
     Game(const std::string &title, const int width, const int height, const std::shared_ptr<Paddle> &padle,

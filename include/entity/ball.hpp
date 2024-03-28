@@ -18,5 +18,5 @@ class Ball : public Circle, public Collidable
     void render(SDL_Renderer &renderer);
     void bounceBrick(Vector2f brick);
     void bouncePaddle(Vector2f paddle);
-    inline void bounceWindow(int width, int height);
+    void bounceWindow(int width, int height);
 };

@@ -7,7 +7,8 @@
 Game::Game(const std::string &title, const int width, const int height, const std::shared_ptr<Paddle> &paddle,
            const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
            const SolveColision &solveColision)
-    : Window(title, width, height), m_paddle(paddle), m_bricks(bricks), m_ball(ball), m_solveColision(solveColision)
+    : Window(title, width, height), m_paddle(paddle), m_bricks(bricks), m_ball(ball), m_solveColision(solveColision),
+      m_background_color(Color::GRAY)
 {
 }
 
@@ -46,8 +47,9 @@ void Game::pollEvents(SDL_Event &event)
 }
 
 void Game::clear()
-{ // for black background
-    SDL_SetRenderDrawColor(this->m_renderer.get(), 0, 0, 0, 255);
+{
+    SDL_SetRenderDrawColor(this->m_renderer.get(), m_background_color.r, m_background_color.g, m_background_color.b,
+                           m_background_color.a);
     SDL_RenderClear(this->m_renderer.get());
 }
 
@@ -71,6 +73,7 @@ void Game::render(double delta)
         brick->render(*m_renderer);
     }
     // for ball to move
+    m_ball->bounceWindow(m_width, m_height); // probably need to be in a different place
     m_ball->move(delta);
     SDL_RenderPresent(m_renderer.get());
 }
