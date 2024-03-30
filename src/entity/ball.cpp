@@ -17,11 +17,8 @@ void Ball::move(const double delta)
 void Ball::bounceBrick(Vector2f brick)
 {
     /*
-    This is not good
+    https://gamedev.stackexchange.com/questions/22609/breakout-collision-detecting-the-side-of-collision
     */
-    float angle = atan2(m_position.y - brick.y, m_position.x - brick.x);
-    m_velocity_x = m_speed * cos(angle);
-    m_velocity_y = m_speed * sin(angle);
 }
 
 void Ball::bouncePaddle(float mid_x_paddle, float width_paddle)
@@ -30,15 +27,10 @@ void Ball::bouncePaddle(float mid_x_paddle, float width_paddle)
     // max angle
     float angle = std::abs(ratio * (M_PI / 3));
     if (ratio < 0)
-    {
         m_velocity_x = -m_speed * sin(angle);
-        m_velocity_y = -m_speed * cos(angle);
-    }
     else
-    {
         m_velocity_x = m_speed * sin(angle);
-        m_velocity_y = -m_speed * cos(angle);
-    }
+    m_velocity_y = -m_speed * cos(angle);
 }
 
 void Ball::bounceWindow(int width, int height)

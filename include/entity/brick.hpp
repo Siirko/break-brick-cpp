@@ -29,7 +29,6 @@ class Brick : public Collidable
     int m_width;
     int m_height;
     Vector2f m_position;
-    // default value
     Color m_color = Color(Color::WHITE);
     BrickType m_type;
     SDL_Rect m_rect;
