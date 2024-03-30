@@ -24,7 +24,7 @@ class SolveColision
             auto paddle = dynamic_cast<Paddle &>(entity2).getRect();
             if (isColisionCircleRect(ball, paddle))
             {
-                ball.bouncePaddle(Vector2f(paddle.x + paddle.w / 2, paddle.y + paddle.h / 2));
+                ball.bouncePaddle(paddle.x + paddle.w / 2, paddle.w);
                 return true;
             }
         }
@@ -36,7 +36,7 @@ class SolveColision
             auto rect = brick.getRect();
             if (isColisionCircleRect(ball, rect))
             {
-                ball.bouncePaddle(Vector2f(rect.x + rect.w / 2, rect.y + rect.h / 2));
+                ball.bounceBrick(Vector2f(rect.x + rect.w / 2, rect.y + rect.h / 2));
                 brick.decreaseLife();
                 return true;
             }

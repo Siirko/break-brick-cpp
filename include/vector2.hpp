@@ -115,10 +115,6 @@ template <class Num_T> Vector2<Num_T>::operator Vector2<uint32_t>() const
 {
     return {static_cast<uint32_t>(this->x), static_cast<uint32_t>(this->y)};
 }
-// template <class Num_T> Vector2<Num_T>::operator Vector2<float>() const
-// {
-//     return {static_cast<float>(this->x), static_cast<float>(this->y)};
-// }
 
 // template <class Num_T> Vector2<Num_T>::operator Vector2<float *>() const { return {&x, &y}; }
 
@@ -181,3 +177,4 @@ template <class Num_T> float Vector2<Num_T>::lengthSquared() const { return x * 
 typedef Vector2<int32_t> Vector2i;
 typedef Vector2<uint32_t> Vector2u;
 typedef Vector2<float> Vector2f;
+typedef Vector2<float &> Vector2fp;

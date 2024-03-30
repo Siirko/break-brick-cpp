@@ -10,29 +10,35 @@ Ball::Ball(const float x, const float y, const int radius, const float velocity_
 
 void Ball::move(const double delta)
 {
-    m_position.x += m_velocity_x * m_speed * delta;
-    m_position.y += m_velocity_y * m_speed * delta;
+    m_position.x += m_velocity_x * delta;
+    m_position.y += m_velocity_y * delta;
 }
 
 void Ball::bounceBrick(Vector2f brick)
 {
-    // simple rebond mirror
-    if (m_position.x - m_radius < brick.x || m_position.x + m_radius > brick.x + brick.y)
-        m_velocity_x = -m_velocity_x;
-    if (m_position.y - m_radius < brick.y || m_position.y + m_radius > brick.y + brick.y)
-        m_velocity_y = -m_velocity_y;
+    /*
+    This is not good
+    */
+    float angle = atan2(m_position.y - brick.y, m_position.x - brick.x);
+    m_velocity_x = m_speed * cos(angle);
+    m_velocity_y = m_speed * sin(angle);
 }
 
-void Ball::bouncePaddle(Vector2f paddle)
+void Ball::bouncePaddle(float mid_x_paddle, float width_paddle)
 {
-    // https://stackoverflow.com/questions/573084/how-to-calculate-bounce-angle/64421233#64421233
-    // still not right, multiple bounce with this method :(
-    Vector2f angle = m_position.angleTo(paddle);
-    Vector2f new_velocity = Vector2f(m_velocity_x, m_velocity_y).rotate(2 * angle.y);
-    m_velocity_x = new_velocity.x;
-    m_velocity_y = new_velocity.y;
-    // static int count = 0;
-    // std::cout << fmt::format("{}: {} {}\n", count++, angle.x, angle.y);
+    float ratio = (this->getX() - mid_x_paddle) / (width_paddle / 2);
+    // max angle
+    float angle = std::abs(ratio * (M_PI / 3));
+    if (ratio < 0)
+    {
+        m_velocity_x = -m_speed * sin(angle);
+        m_velocity_y = -m_speed * cos(angle);
+    }
+    else
+    {
+        m_velocity_x = m_speed * sin(angle);
+        m_velocity_y = -m_speed * cos(angle);
+    }
 }
 
 void Ball::bounceWindow(int width, int height)

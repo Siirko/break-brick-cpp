@@ -5,7 +5,6 @@
 class Color
 {
   public:
-    // add color before WHITE and BLACK
     enum ColorType
     {
         RED = 0xFF0000,
