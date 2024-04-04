@@ -20,6 +20,6 @@ class GameManager
 
   public:
     GameManager(int width, int height) { init(width, height); }
-    void init(int width, int height, float ball_speed = 0.7f, float paddle_speed = 0.5f);
+    void init(int width, int height, float ball_speed = .7f, float paddle_speed = .5f);
     inline std::shared_ptr<Game> getGame() const { return m_game; }
 };
