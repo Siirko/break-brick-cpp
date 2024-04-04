@@ -36,7 +36,7 @@ class SolveColision
             auto rect = brick.getRect();
             if (isColisionCircleRect(ball, rect))
             {
-                ball.bounceBrick(Vector2f(rect.x + rect.w / 2, rect.y + rect.h / 2));
+                ball.bounceBrick(rect, ball.getRadius(), ball.getX(), ball.getY());
                 brick.decreaseLife();
                 return true;
             }

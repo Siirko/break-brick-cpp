@@ -16,7 +16,7 @@ class Ball : public Circle, public Collidable
     const inline Vector2f &getPosition() const { return m_position; }
     void move(const double delta);
     void render(SDL_Renderer &renderer);
-    void bounceBrick(Vector2f brick);
+    void bounceBrick(SDL_Rect &brick, int ball_radius, int ball_x, int ball_y);
     void bouncePaddle(float mid_x_paddle, float width_paddle);
     void bounceWindow(int width, int height);
 };

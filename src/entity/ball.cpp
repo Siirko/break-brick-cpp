@@ -14,11 +14,21 @@ void Ball::move(const double delta)
     m_position.y += m_velocity_y * delta;
 }
 
-void Ball::bounceBrick(Vector2f brick)
+void Ball::bounceBrick(SDL_Rect &brick, int ball_radius, int ball_x, int ball_y)
 {
-    /*
-    https://gamedev.stackexchange.com/questions/22609/breakout-collision-detecting-the-side-of-collision
-    */
+    int overlap_left = (ball_x + ball_radius) - brick.x;
+    int overlap_right = brick.x + brick.w - (ball_x - ball_radius);
+    int overlap_top = (ball_y + ball_radius) - brick.y;
+    int overlap_bottom = brick.y + brick.h - (ball_y - ball_radius);
+
+    if (overlap_left < overlap_right && overlap_left < overlap_top && overlap_left < overlap_bottom)
+        m_velocity_x = -m_velocity_x;
+    else if (overlap_right < overlap_left && overlap_right < overlap_top && overlap_right < overlap_bottom)
+        m_velocity_x = -m_velocity_x;
+    else if (overlap_top < overlap_left && overlap_top < overlap_right && overlap_top < overlap_bottom)
+        m_velocity_y = -m_velocity_y;
+    else
+        m_velocity_y = -m_velocity_y;
 }
 
 void Ball::bouncePaddle(float mid_x_paddle, float width_paddle)
