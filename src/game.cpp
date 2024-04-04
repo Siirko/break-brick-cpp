@@ -55,12 +55,19 @@ void Game::clear()
 
 void Game::render(double delta)
 {
-
-    // for pink paddle
     m_paddle->render(*m_renderer);
-    // for units to be displayed
-    m_solveColision.isColision(*m_ball, *m_paddle);
     m_ball->render(*m_renderer);
+    for (auto &brick : m_bricks)
+        brick->render(*m_renderer);
+}
+
+void Game::update(double delta)
+{
+    m_solveColision.isColision(*m_ball, *m_paddle);
+
+    m_ball->bounceWindow(m_width, m_height);
+    m_ball->move(delta);
+
     m_bricks.erase(
         std::remove_if(m_bricks.begin(), m_bricks.end(), [](const auto &brick) { return brick->isDestroyed(); }),
         m_bricks.end());
@@ -69,11 +76,8 @@ void Game::render(double delta)
     {
         if (brick->isDestroyed())
             continue;
-        m_solveColision.isColision(*m_ball, *brick);
-        brick->render(*m_renderer);
+        if (m_solveColision.isColision(*m_ball, *brick))
+            brick->decreaseLife();
     }
-    // for ball to move
-    m_ball->bounceWindow(m_width, m_height); // probably need to be in a different place
-    m_ball->move(delta);
     SDL_RenderPresent(m_renderer.get());
 }

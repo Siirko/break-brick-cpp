@@ -40,6 +40,7 @@ class Window
 
     virtual void clear() = 0;
     virtual void render(double delta) = 0;
+    virtual void update(double delta) = 0;
     virtual void handleEvents(SDL_Event &event, const double delta) = 0;
     void loop();
 

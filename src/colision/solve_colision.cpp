@@ -61,3 +61,31 @@ bool SolveColision::isColisionCircleRect(Circle &circle, SDL_Rect &rect)
 
     return false;
 }
+
+bool SolveColision::isColision(Collidable &entity1, Collidable &entity2)
+{
+    if (entity1.getType() == Collidable::CollidableType::BALL &&
+        entity2.getType() == Collidable::CollidableType::PADDLE)
+    {
+        auto &ball = dynamic_cast<Ball &>(entity1);
+        auto paddle = dynamic_cast<Paddle &>(entity2).getRect();
+        if (isColisionCircleRect(ball, paddle))
+        {
+            ball.bouncePaddle(paddle.x + paddle.w / 2, paddle.w);
+            return true;
+        }
+    }
+    else if (entity1.getType() == Collidable::CollidableType::BALL &&
+             entity2.getType() == Collidable::CollidableType::BRICK)
+    {
+        auto &ball = dynamic_cast<Ball &>(entity1);
+        auto &brick = dynamic_cast<Brick &>(entity2);
+        auto rect = brick.getRect();
+        if (isColisionCircleRect(ball, rect))
+        {
+            ball.bounceBrick(rect, ball.getRadius(), ball.getX(), ball.getY());
+            return true;
+        }
+    }
+    return false;
+}

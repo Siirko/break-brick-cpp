@@ -25,4 +25,5 @@ class Game : public Window, public Event
     void pollEvents(SDL_Event &event) override;
     void clear() override;
     void render(double delta) override;
+    void update(double delta) override;
 };
