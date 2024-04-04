@@ -71,7 +71,7 @@ void Game::update(double delta)
     m_bricks.erase(
         std::remove_if(m_bricks.begin(), m_bricks.end(), [](const auto &brick) { return brick->isDestroyed(); }),
         m_bricks.end());
-    // check colision with bricks and render them
+
     for (auto &brick : m_bricks)
     {
         if (brick->isDestroyed())
