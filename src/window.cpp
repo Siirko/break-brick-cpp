@@ -31,6 +31,7 @@ void Window::loop()
         handleEvents(event, m_clock.delta);
         render(m_clock.delta);
         update(m_clock.delta);
+        SDL_RenderPresent(m_renderer.get());
     }
 }
 

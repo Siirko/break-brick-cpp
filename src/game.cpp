@@ -79,5 +79,4 @@ void Game::update(double delta)
         if (m_solveColision.isColision(*m_ball, *brick))
             brick->decreaseLife();
     }
-    SDL_RenderPresent(m_renderer.get());
 }
