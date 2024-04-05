@@ -14,11 +14,12 @@ class Game : public Window, public Event
     std::shared_ptr<Ball> m_ball;
     SolveColision m_solveColision;
     Color m_background_color;
+    int m_lives;
 
   public:
     Game(const std::string &title, const int width, const int height, const std::shared_ptr<Paddle> &padle,
          const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
-         const SolveColision &solveColision);
+         const SolveColision &solveColision, int lives);
     virtual ~Game();
 
     void handleEvents(SDL_Event &event, const double delta) override;
@@ -26,4 +27,10 @@ class Game : public Window, public Event
     void clear() override;
     void render(double delta) override;
     void update(double delta) override;
+    inline bool decreaseLives()
+    {
+        if (m_lives > 0)
+            m_lives--;
+        return m_lives == 0;
+    }
 };

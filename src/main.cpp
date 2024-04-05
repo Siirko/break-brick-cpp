@@ -10,9 +10,10 @@
 
 int main(int argc, char const *argv[])
 {
-    const int width = 800;
-    const int height = 600;
-    const GameManager gameManager(width, height);
+    const int width = 800, height = 600;
+    const float ball_speed = .5f, paddle_speed = .65f;
+    int lifes = 3;
+    const GameManager gameManager(width, height, ball_speed, paddle_speed, lifes);
     auto game = gameManager.getGame();
     while (!game->isClosed())
         game->loop();

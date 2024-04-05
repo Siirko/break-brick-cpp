@@ -6,9 +6,9 @@
 
 Game::Game(const std::string &title, const int width, const int height, const std::shared_ptr<Paddle> &paddle,
            const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
-           const SolveColision &solveColision)
+           const SolveColision &solveColision, int lives)
     : Window(title, width, height), m_paddle(paddle), m_bricks(bricks), m_ball(ball), m_solveColision(solveColision),
-      m_background_color(Color::GRAY)
+      m_background_color(Color::GRAY), m_lives(lives)
 {
 }
 
@@ -63,6 +63,15 @@ void Game::render(double delta)
 
 void Game::update(double delta)
 {
+    if (m_ball->isOut())
+    {
+        bool isGameOver = this->decreaseLives();
+        if (isGameOver)
+            m_closed = true;
+        else
+            m_ball->reset(m_width / 2, m_height / 2);
+    }
+
     m_solveColision.isColision(*m_ball, *m_paddle);
 
     m_ball->bounceWindow(m_width, m_height);

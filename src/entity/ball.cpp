@@ -45,10 +45,16 @@ void Ball::bouncePaddle(float mid_x_paddle, float width_paddle)
 
 void Ball::bounceWindow(int width, int height)
 {
-    if (m_position.x - m_radius < 0 || m_position.x + m_radius > width)
+    bool isBallTouchingLeft = m_position.x - m_radius < 0;
+    bool isBallTouchingRight = m_position.x + m_radius > width;
+    bool isBallTouchingTop = m_position.y - m_radius < 0;
+    bool isBallTouchingBottom = m_position.y + m_radius > height;
+    if (isBallTouchingLeft || isBallTouchingRight)
         m_velocity_x = -m_velocity_x;
-    if (m_position.y - m_radius < 0 || m_position.y + m_radius > height)
+    if (isBallTouchingTop)
         m_velocity_y = -m_velocity_y;
+    if (isBallTouchingBottom)
+        m_out = true;
 }
 
 void Ball::render(SDL_Renderer &renderer)
@@ -56,4 +62,13 @@ void Ball::render(SDL_Renderer &renderer)
     int res = SDL_SetRenderDrawColor(&renderer, m_color.r, m_color.g, m_color.b, m_color.a);
     checkSDL<int>(res, res == 0);
     drawFilledCircle(renderer);
+}
+
+void Ball::reset(const float x, const float y)
+{
+    m_position.x = x;
+    m_position.y = y;
+    m_velocity_x = 0;
+    m_velocity_y = m_speed;
+    m_out = false;
 }

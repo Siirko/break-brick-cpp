@@ -19,7 +19,10 @@ class GameManager
     void generateBall(const float x, const float y, const int radius, float ball_speed);
 
   public:
-    GameManager(int width, int height) { init(width, height); }
-    void init(int width, int height, float ball_speed = .7f, float paddle_speed = .5f);
+    GameManager(int width, int height, float ball_speed = .5f, float paddle_speed = .65f, int lifes = 3)
+    {
+        init(width, height, ball_speed, paddle_speed, lifes);
+    }
+    void init(int width, int height, float ball_speed, float paddle_speed, int lifes);
     inline std::shared_ptr<Game> getGame() const { return m_game; }
 };

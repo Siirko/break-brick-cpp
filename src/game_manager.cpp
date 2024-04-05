@@ -1,7 +1,7 @@
 #include "game_manager.hpp"
 #include <random>
 
-void GameManager::init(int width, int height, float ball_speed, float paddle_speed)
+void GameManager::init(int width, int height, float ball_speed, float paddle_speed, int lifes)
 {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -12,8 +12,8 @@ void GameManager::init(int width, int height, float ball_speed, float paddle_spe
     int brick_height = 40;
     generateBricks(rows, columns, brick_width, brick_height, gen);
     generateBall(width / 2, height / 2, 10, ball_speed);
-    std::shared_ptr<Paddle> paddle = std::make_shared<Paddle>(width / 2 - 50, height - 40, 80, 20, paddle_speed);
-    m_game = std::make_shared<Game>("Breakout", width, height, paddle, m_bricks, m_ball, m_solveColision);
+    std::shared_ptr<Paddle> paddle = std::make_shared<Paddle>(width / 2 - 50, height - 40, 80, 5, paddle_speed);
+    m_game = std::make_shared<Game>("Breakout", width, height, paddle, m_bricks, m_ball, m_solveColision, lifes);
 }
 
 void GameManager::generateBricks(const int rows, const int columns, const int width, const int height, std::mt19937 gen)
