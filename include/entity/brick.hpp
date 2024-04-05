@@ -21,9 +21,9 @@ class Brick : public Collidable
     };
 
     std::map<BrickType, Color::ColorType> brickTypeMap = {{BrickType::NORMAL, Color::GREEN},
-                                                          {BrickType::HARD, Color::RED},
-                                                          {BrickType::HARDENED, Color::BLUE},
-                                                          {BrickType::UNBREAKABLE, Color::YELLOW}};
+                                                          {BrickType::HARD, Color::YELLOW},
+                                                          {BrickType::HARDENED, Color::ORANGE},
+                                                          {BrickType::UNBREAKABLE, Color::RED}};
 
   private:
     int m_width;

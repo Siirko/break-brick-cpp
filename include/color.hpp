@@ -13,6 +13,7 @@ class Color
         YELLOW = 0xFFFF00,
         WHITE = 0xFFFFFF,
         BLACK = 0x000000,
+        ORANGE = 0xFFA500,
         GRAY = 0x3d3d3d,
     };
     uint8_t r;
