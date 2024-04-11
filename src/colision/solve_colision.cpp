@@ -1,5 +1,4 @@
 #include "colision/solve_colision.hpp"
-#include "colision/collidable.hpp"
 
 #include <algorithm>
 
@@ -59,33 +58,5 @@ bool SolveColision::isColisionCircleRect(Circle &circle, SDL_Rect &rect)
     if (distanceSquared(circle.getX(), circle.getY(), closestX, closestY) < circle.getRadius() * circle.getRadius())
         return true;
 
-    return false;
-}
-
-bool SolveColision::isColision(Collidable &entity1, Collidable &entity2)
-{
-    if (entity1.getType() == Collidable::CollidableType::BALL &&
-        entity2.getType() == Collidable::CollidableType::PADDLE)
-    {
-        auto &ball = dynamic_cast<Ball &>(entity1);
-        auto paddle = dynamic_cast<Paddle &>(entity2).getRect();
-        if (isColisionCircleRect(ball, paddle))
-        {
-            ball.bouncePaddle(paddle.x + paddle.w / 2, paddle.w);
-            return true;
-        }
-    }
-    else if (entity1.getType() == Collidable::CollidableType::BALL &&
-             entity2.getType() == Collidable::CollidableType::BRICK)
-    {
-        auto &ball = dynamic_cast<Ball &>(entity1);
-        auto &brick = dynamic_cast<Brick &>(entity2);
-        auto rect = brick.getRect();
-        if (isColisionCircleRect(ball, rect))
-        {
-            ball.bounceBrick(rect);
-            return true;
-        }
-    }
     return false;
 }

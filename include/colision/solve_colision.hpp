@@ -1,10 +1,10 @@
 #pragma once
 
-#include "collidable.hpp"
 #include "entity/ball.hpp"
 #include "entity/brick.hpp"
 #include "entity/paddle.hpp"
 #include "primitive/circle.hpp"
+#include "window.hpp"
 #include <SDL2/SDL.h>
 
 class SolveColision
@@ -15,5 +15,23 @@ class SolveColision
     bool isColisionCircleRect(Circle &circle, SDL_Rect &rect);
 
   public:
-    bool isColision(Collidable &entity1, Collidable &entity2);
+    inline bool isColision(Ball &ball, Brick &brick)
+    {
+        if (isColisionCircleRect(ball, brick))
+        {
+            ball.bounceBrick(brick);
+            return true;
+        }
+        return false;
+    }
+
+    inline bool isColision(Ball &ball, Paddle &paddle)
+    {
+        if (isColisionCircleRect(ball, paddle))
+        {
+            ball.bouncePaddle(paddle.getRect().x + paddle.getRect().w / 2, paddle.getRect().w);
+            return true;
+        }
+        return false;
+    }
 };

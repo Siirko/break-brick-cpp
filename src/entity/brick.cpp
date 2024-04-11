@@ -2,8 +2,7 @@
 #include <random>
 
 Brick::Brick(int x, int y, int width, int height, BrickType type)
-    : Collidable(CollidableType::BRICK), m_width(width), m_height(height), m_position(Vector2f(x, y)), m_type(type),
-      m_rect({x, y, width, height})
+    : m_width(width), m_height(height), m_position(Vector2f(x, y)), m_type(type), m_rect({x, y, width, height})
 {
     m_life = m_type;
     m_color = brickTypeMap[m_type];

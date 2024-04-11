@@ -1,5 +1,4 @@
 #pragma once
-#include "colision/collidable.hpp"
 #include "color.hpp"
 #include "utils.hpp"
 #include "vector2.hpp"
@@ -8,7 +7,7 @@
 #include <memory>
 #include <ostream>
 
-class Brick : public Collidable
+class Brick
 {
   public:
     enum BrickType

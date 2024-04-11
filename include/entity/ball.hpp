@@ -1,9 +1,8 @@
 #pragma once
-#include "colision/collidable.hpp"
 #include "color.hpp"
 #include "primitive/circle.hpp"
 #include <SDL2/SDL.h>
-class Ball : public Circle, public Collidable
+class Ball : public Circle
 {
   private:
     float m_velocity_x, m_velocity_y;

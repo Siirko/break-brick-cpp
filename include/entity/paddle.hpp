@@ -1,12 +1,11 @@
 #pragma once
-#include "colision/collidable.hpp"
 #include "color.hpp"
 #include "event.hpp"
 #include "utils.hpp"
 #include "vector2.hpp"
 #include <SDL2/SDL.h>
 #include <memory>
-class Paddle : public Collidable, public Event
+class Paddle : public Event
 {
   private:
     SDL_Rect m_paddle;
@@ -15,7 +14,7 @@ class Paddle : public Collidable, public Event
 
   public:
     Paddle(const int x, const int y, const int width, const int height, const float speed);
-    ~Paddle();
+    virtual ~Paddle();
 
     void moveLeft(const double delta);
     void moveRight(const double delta);

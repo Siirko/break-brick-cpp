@@ -1,7 +1,7 @@
 #include "entity/paddle.hpp"
 
 Paddle::Paddle(const int x, const int y, const int width, const int height, const float speed)
-    : Collidable(CollidableType::PADDLE), m_paddle{x, y, width, height}, m_speed(speed), m_color(Color::YELLOW)
+    : m_paddle{x, y, width, height}, m_speed(speed), m_color(Color::YELLOW)
 {
 }
 
@@ -10,6 +10,11 @@ Paddle::~Paddle() {}
 void Paddle::moveLeft(const double delta) { m_paddle.x += -m_speed * delta; }
 
 void Paddle::moveRight(const double delta) { m_paddle.x += m_speed * delta; }
+
+bool isWindowColliding(const int x, const int y, const int w, const int h, const int width, const int height)
+{
+    return x >= 0 && y >= 0 && x + w <= width && y + h <= height;
+}
 
 void Paddle::render(SDL_Renderer &renderer)
 {

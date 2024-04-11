@@ -3,8 +3,7 @@
 
 Ball::Ball(const float x, const float y, const int radius, const float velocity_x, const float velocity_y,
            const float speed, Color color)
-    : Circle(x, y, radius), Collidable(CollidableType::BALL), m_velocity_x(velocity_x), m_velocity_y(velocity_y),
-      m_speed(speed), m_color(color)
+    : Circle(x, y, radius), m_velocity_x(velocity_x), m_velocity_y(velocity_y), m_speed(speed), m_color(color)
 {
 }
 
