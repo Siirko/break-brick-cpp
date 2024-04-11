@@ -7,6 +7,7 @@
 #include "window.hpp"
 #include <SDL2/SDL.h>
 
+struct Bonus;
 class ColisionSolver
 {
   private:
@@ -17,4 +18,5 @@ class ColisionSolver
   public:
     bool isColision(Ball &ball, Brick &brick);
     bool isColision(Ball &ball, Paddle &paddle);
+    bool isColision(Bonus &bonus, Paddle &paddle);
 };

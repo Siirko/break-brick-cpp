@@ -1,6 +1,5 @@
 #include "color.hpp"
 #include "entity/brick.hpp"
-#include "game.hpp"
 #include "game_manager.hpp"
 #include <cstdio>
 #include <memory>

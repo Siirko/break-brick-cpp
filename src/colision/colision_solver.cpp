@@ -1,5 +1,5 @@
 #include "colision/colision_solver.hpp"
-
+#include "entity/bonus/bonus.hpp"
 #include <algorithm>
 
 bool ColisionSolver::isColisionCircle(Circle &circle1, Circle &circle2)
@@ -76,6 +76,17 @@ bool ColisionSolver::isColision(Ball &ball, Paddle &paddle)
     if (isColisionCircleRect(ball, paddle))
     {
         ball.bouncePaddle(paddle.getRect().x + paddle.getRect().w / 2, paddle.getRect().w);
+        return true;
+    }
+    return false;
+}
+
+bool ColisionSolver::isColision(Bonus &bonus, Paddle &paddle)
+{
+    // not so good
+    if (isColisionCircleRect(dynamic_cast<Circle &>(bonus), paddle))
+    {
+        bonus.setOut();
         return true;
     }
     return false;

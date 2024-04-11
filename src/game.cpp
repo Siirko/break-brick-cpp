@@ -8,7 +8,7 @@ Game::Game(const std::string &title, const int width, const int height, const st
            const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
            const ColisionSolver &solveColision, int lives)
     : Window(title, width, height), m_paddle(paddle), m_bricks(bricks), m_ball(ball), m_solveColision(solveColision),
-      m_background_color(Color::GRAY), m_lives(lives)
+      m_background_color(Color::GRAY), m_lives(lives), m_bonusManager()
 {
 }
 
@@ -59,6 +59,8 @@ void Game::render(double delta)
     m_ball->render(*m_renderer);
     for (auto &brick : m_bricks)
         brick->render(*m_renderer);
+    for (auto &bonus : m_bonusManager.getBonuses())
+        bonus->render(*m_renderer);
 }
 
 void Game::update(double delta)
@@ -71,6 +73,9 @@ void Game::update(double delta)
         else
             m_ball->reset(m_width / 2, m_height / 2);
     }
+
+    // random bonus
+    m_bonusManager.generateRandomBonus(delta);
 
     m_solveColision.isColision(*m_ball, *m_paddle);
 
@@ -87,5 +92,19 @@ void Game::update(double delta)
             continue;
         if (m_solveColision.isColision(*m_ball, *brick))
             brick->decreaseLife();
+    }
+
+    m_bonusManager.getBonuses().erase(std::remove_if(m_bonusManager.getBonuses().begin(),
+                                                     m_bonusManager.getBonuses().end(),
+                                                     [&](const auto &bonus) { return bonus->isOut(); }),
+                                      m_bonusManager.getBonuses().end());
+
+    for (auto &bonus : m_bonusManager.getBonuses())
+    {
+        if (bonus->isOut())
+            continue;
+        bonus->move(delta);
+        if (m_solveColision.isColision(*bonus, *m_paddle))
+            bonus->result(*this);
     }
 }

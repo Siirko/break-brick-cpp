@@ -60,7 +60,7 @@ void Ball::render(SDL_Renderer &renderer)
 {
     int res = SDL_SetRenderDrawColor(&renderer, m_color.r, m_color.g, m_color.b, m_color.a);
     checkSDL<int>(res, res == 0);
-    drawFilledCircle(renderer);
+    this->drawFilledCircle(renderer);
 }
 
 void Ball::reset(const float x, const float y)
