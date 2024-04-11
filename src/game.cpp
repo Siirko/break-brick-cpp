@@ -6,7 +6,7 @@
 
 Game::Game(const std::string &title, const int width, const int height, const std::shared_ptr<Paddle> &paddle,
            const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
-           const SolveColision &solveColision, int lives)
+           const ColisionSolver &solveColision, int lives)
     : Window(title, width, height), m_paddle(paddle), m_bricks(bricks), m_ball(ball), m_solveColision(solveColision),
       m_background_color(Color::GRAY), m_lives(lives)
 {

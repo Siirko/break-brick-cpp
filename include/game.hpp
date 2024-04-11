@@ -1,5 +1,5 @@
 #pragma once
-#include "colision/solve_colision.hpp"
+#include "colision/colision_solver.hpp"
 #include "entity/ball.hpp"
 #include "entity/brick.hpp"
 #include "entity/paddle.hpp"
@@ -12,14 +12,14 @@ class Game : public Window, public Event
     std::shared_ptr<Paddle> m_paddle;
     std::vector<std::shared_ptr<Brick>> m_bricks;
     std::shared_ptr<Ball> m_ball;
-    SolveColision m_solveColision;
+    ColisionSolver m_solveColision;
     Color m_background_color;
     int m_lives;
 
   public:
     Game(const std::string &title, const int width, const int height, const std::shared_ptr<Paddle> &padle,
          const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
-         const SolveColision &solveColision, int lives);
+         const ColisionSolver &solveColision, int lives);
     virtual ~Game();
 
     void handleEvents(SDL_Event &event, const double delta) override;
