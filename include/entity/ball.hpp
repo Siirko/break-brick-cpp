@@ -18,7 +18,7 @@ class Ball : public Circle, public Collidable
     const inline bool isOut() const { return m_out; }
     void move(const double delta);
     void render(SDL_Renderer &renderer);
-    void bounceBrick(SDL_Rect &brick, int ball_radius, int ball_x, int ball_y);
+    void bounceBrick(SDL_Rect &brick);
     void bouncePaddle(float mid_x_paddle, float width_paddle);
     void bounceWindow(int width, int height);
     void reset(const float x, const float y);

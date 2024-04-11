@@ -12,7 +12,6 @@ class Paddle : public Collidable, public Event
     SDL_Rect m_paddle;
     float m_speed;
     Color m_color;
-    Vector2f m_position;
 
   public:
     Paddle(const int x, const int y, const int width, const int height, const float speed);
@@ -22,7 +21,6 @@ class Paddle : public Collidable, public Event
     void moveRight(const double delta);
     void render(SDL_Renderer &renderer);
     const inline SDL_Rect getRect() const { return m_paddle; }
-    const inline Vector2f &getPosition() const { return m_position; }
     operator SDL_Rect() const { return m_paddle; }
     operator SDL_Rect &() { return m_paddle; }
 

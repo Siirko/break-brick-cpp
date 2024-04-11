@@ -83,7 +83,7 @@ bool SolveColision::isColision(Collidable &entity1, Collidable &entity2)
         auto rect = brick.getRect();
         if (isColisionCircleRect(ball, rect))
         {
-            ball.bounceBrick(rect, ball.getRadius(), ball.getX(), ball.getY());
+            ball.bounceBrick(rect);
             return true;
         }
     }
