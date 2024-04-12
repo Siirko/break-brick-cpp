@@ -7,7 +7,7 @@
 #include "window.hpp"
 #include <SDL2/SDL.h>
 
-struct Bonus;
+class Bonus;
 class ColisionSolver
 {
   private:

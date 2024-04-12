@@ -15,10 +15,8 @@ void BonusManager::generateRandomBonus(const double delta)
         int x = 800 / 2;
         int y = 0;
         int radius = 10;
-        float velocity_x = 0;
         float velocity_y = .12f;
-        float speed = .12f;
-        std::shared_ptr<Bonus> bonus = std::make_shared<ExtraLife>(x, y, radius, velocity_x, velocity_y, speed);
+        std::shared_ptr<Bonus> bonus = std::make_shared<ExtraLife>(x, y, radius, velocity_y);
         addBonus(bonus);
     }
 }

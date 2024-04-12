@@ -2,10 +2,8 @@
 #include "game.hpp"
 #include "utils.hpp"
 
-ExtraLife::ExtraLife(const float x, const float y, const int radius, const float velocity_x, const float velocity_y,
-                     const float speed)
-    : Circle(x, y, radius), Bonus(BonusType::EXTRA_LIFE), m_velocity_x(velocity_x), m_velocity_y(velocity_y),
-      m_speed(speed)
+ExtraLife::ExtraLife(const float x, const float y, const int radius, const float velocity_y)
+    : Circle(x, y, radius), Bonus(BonusType::EXTRA_LIFE), m_velocity_y(velocity_y)
 {
 }
 

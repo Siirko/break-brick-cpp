@@ -4,8 +4,8 @@
 #include <SDL2/SDL.h>
 #include <map>
 
-struct Game;
-struct BonusManager;
+class Game;
+class BonusManager;
 class Bonus
 {
   public:
