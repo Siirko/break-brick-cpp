@@ -8,7 +8,7 @@ Game::Game(const std::string &title, const int width, const int height, const st
            const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
            const ColisionSolver &solveColision, int lives)
     : Window(title, width, height), m_paddle(paddle), m_bricks(bricks), m_ball(ball), m_solveColision(solveColision),
-      m_background_color(Color::GRAY), m_lives(lives), m_bonusManager()
+      m_background_color(Color::GRAY), m_lives(lives), m_bonusManager(width, height)
 {
 }
 
@@ -58,9 +58,11 @@ void Game::render(double delta)
     m_paddle->render(*m_renderer);
     m_ball->render(*m_renderer);
     for (auto &brick : m_bricks)
-        brick->render(*m_renderer);
+        if (!brick->isDestroyed())
+            brick->render(*m_renderer);
     for (auto &bonus : m_bonusManager.getBonuses())
-        bonus->render(*m_renderer);
+        if (!bonus->isOut())
+            bonus->render(*m_renderer);
 }
 
 void Game::update(double delta)

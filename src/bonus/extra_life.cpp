@@ -18,6 +18,10 @@ void ExtraLife::render(SDL_Renderer &renderer)
     int res = SDL_SetRenderDrawColor(&renderer, m_color.r, m_color.g, m_color.b, m_color.a);
     checkSDL<int>(res, res == 0);
     this->drawFilledCircle(renderer);
+    int width, height;
+    SDL_GetRendererOutputSize(&renderer, &width, &height);
+    if (m_position.y > height)
+        m_out = true;
 }
 
 void ExtraLife::result(Game &game)

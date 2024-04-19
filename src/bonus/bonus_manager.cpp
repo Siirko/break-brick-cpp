@@ -5,14 +5,14 @@ void BonusManager::addBonus(std::shared_ptr<Bonus> &bonus) { m_bonuses.push_back
 
 void BonusManager::generateRandomBonus(const double delta)
 {
-    // each 10 seconds generate a new bonus
+    // each m_interval seconds generate a bonus
     static double time = 0;
     time += delta / 1000;
-    if (time >= 10)
+    if (time >= m_interval)
     {
         std::cout << "Generating bonus" << std::endl;
         time = 0;
-        int x = 800 / 2;
+        int x = m_gen() % m_width;
         int y = 0;
         int radius = 10;
         float velocity_y = .12f;
