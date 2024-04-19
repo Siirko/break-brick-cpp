@@ -12,7 +12,7 @@ class Bonus
     enum BonusType
     {
         EXTRA_LIFE = 1,
-        BIG_PADDLE,
+        INCR_PADDLE,
         MULTI_BALL,
         TOTAL_ITEMS
     };
@@ -24,7 +24,7 @@ class Bonus
 
   public:
     std::map<BonusType, Color::ColorType> bonusTypeMap = {{BonusType::EXTRA_LIFE, Color::CYAN},
-                                                          {BonusType::BIG_PADDLE, Color::OLIVE},
+                                                          {BonusType::INCR_PADDLE, Color::OLIVE},
                                                           {BonusType::MULTI_BALL, Color::PINK}};
     Bonus(enum BonusType type) : m_type(type) { m_color = Color(bonusTypeMap[type]); }
     virtual void result(Game &game) = 0;

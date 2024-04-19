@@ -37,4 +37,5 @@ class Game : public Window, public Event
         return m_lives == 0;
     }
     inline void increaseLives() { m_lives++; }
+    inline void increasePaddleWidth(int v) { m_paddle->setWidth(m_paddle->getWidth() + v); }
 };

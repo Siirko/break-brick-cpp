@@ -16,6 +16,10 @@ class Paddle : public Event
     Paddle(const int x, const int y, const int width, const int height, const float speed);
     virtual ~Paddle();
 
+    void setWidth(const int width) { m_paddle.w = width; }
+    void setHeight(const int height) { m_paddle.h = height; }
+    int getWidth() const { return m_paddle.w; }
+    int getHeight() const { return m_paddle.h; }
     void moveLeft(const double delta);
     void moveRight(const double delta);
     void render(SDL_Renderer &renderer);
