@@ -82,6 +82,7 @@
         "future": "cpp",
         "valarray": "cpp",
         "source_location": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "filesystem": "cpp"
     }
 }

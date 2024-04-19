@@ -8,9 +8,12 @@ void GameManager::init(int width, int height, float ball_speed, float paddle_spe
 
     int rows = 10;
     int columns = 5;
-    int brick_width = 80;
-    int brick_height = 40;
-    auto bricks = generateBricks(rows, columns, brick_width, brick_height, gen);
+    // int brick_width = 80;
+    // int brick_height = 120;
+    // auto bricks = generateBricks(rows, columns, brick_width, brick_height, gen);
+    auto bricks = m_brickManager.generateBricks(width, height, 20);
+    std::cout << "Bricks size: " << bricks.size() << std::endl;
+
     auto balls = generateBall(width / 2, height / 2, 10, ball_speed);
     std::shared_ptr<Paddle> paddle = std::make_shared<Paddle>(width / 2 - 50, height - 40, 80, 5, paddle_speed);
     m_game = std::make_shared<Game>("Breakout", width, height, paddle, bricks, balls, ColisionSolver(), lifes);

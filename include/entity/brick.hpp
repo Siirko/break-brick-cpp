@@ -24,6 +24,9 @@ class Brick
                                                           {BrickType::HARDENED, Color::ORANGE},
                                                           {BrickType::UNBREAKABLE, Color::RED}};
 
+    std::map<BrickType, char> brickTypeCharMap = {
+        {BrickType::NORMAL, 'N'}, {BrickType::HARD, 'H'}, {BrickType::HARDENED, 'D'}, {BrickType::UNBREAKABLE, 'U'}};
+
   private:
     int m_width;
     int m_height;
