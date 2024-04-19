@@ -27,9 +27,9 @@ class Bonus
                                                           {BonusType::BIG_PADDLE, Color::OLIVE},
                                                           {BonusType::MULTI_BALL, Color::PINK}};
     Bonus(enum BonusType type) : m_type(type) { m_color = Color(bonusTypeMap[type]); }
-    virtual void result(Game &game);
-    virtual void move(const double delta);
-    virtual void render(SDL_Renderer &renderer);
+    virtual void result(Game &game) = 0;
+    virtual void move(const double delta) = 0;
+    virtual void render(SDL_Renderer &renderer) = 0;
     inline bool isOut() const { return m_out; }
     inline void setOut() { m_out = true; }
 };
