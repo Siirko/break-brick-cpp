@@ -13,12 +13,10 @@ class BonusManager
     void addBonus(std::shared_ptr<Bonus> &bonus);
     int m_width;
     int m_interval; // interval in seconds
+    BonusFactory m_bonusFactory;
 
   public:
-    BonusManager(int width, int spawn_bonus_interval = 10) : m_width(width), m_interval(spawn_bonus_interval)
-    {
-        m_gen = std::mt19937(std::random_device()());
-    }
+    BonusManager(int width, int spawn_bonus_interval = 10);
 
     void generateRandomBonus(const double delta);
     inline std::vector<std::shared_ptr<Bonus>> &getBonuses() { return m_bonuses; }

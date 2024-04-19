@@ -21,4 +21,8 @@ class Ball : public Circle
     void bouncePaddle(float mid_x_paddle, float width_paddle);
     void bounceWindow(int width, int height);
     void reset(const float x, const float y);
+    inline float getVelocityX() const { return m_velocity_x; }
+    inline float getVelocityY() const { return m_velocity_y; }
+    inline float getSpeed() const { return m_speed; }
+    inline Color getColor() const { return m_color; }
 };

@@ -13,7 +13,7 @@ void GameManager::init(int width, int height, float ball_speed, float paddle_spe
     auto bricks = generateBricks(rows, columns, brick_width, brick_height, gen);
     auto balls = generateBall(width / 2, height / 2, 10, ball_speed);
     std::shared_ptr<Paddle> paddle = std::make_shared<Paddle>(width / 2 - 50, height - 40, 80, 5, paddle_speed);
-    m_game = std::make_shared<Game>("Breakout", width, height, paddle, bricks, balls, ColisionSolver(), 100);
+    m_game = std::make_shared<Game>("Breakout", width, height, paddle, bricks, balls, ColisionSolver(), lifes);
 }
 
 std::vector<std::shared_ptr<Brick>> GameManager::generateBricks(const int rows, const int columns, const int width,
