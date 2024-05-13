@@ -29,4 +29,5 @@ class Paddle : public Event
 
     void pollEvents(SDL_Event &event) override;
     void applyEvents(const double delta) override;
+    void reset(int x, int y, int width, int height);
 };

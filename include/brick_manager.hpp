@@ -14,5 +14,5 @@ class BrickManager
         std::vector<std::vector<Brick::BrickType>> bricks;
     };
     struct BrickData loadBricks(std::string level);
-    std::vector<std::shared_ptr<Brick>> generateBricks(int width, int height, int margin);
+    std::vector<std::shared_ptr<Brick>> generateBricks(int width, int height, int margin, std::string level);
 };

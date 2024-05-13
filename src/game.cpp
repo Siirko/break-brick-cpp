@@ -6,9 +6,10 @@
 
 Game::Game(const std::string &title, const int width, const int height, const std::shared_ptr<Paddle> &paddle,
            const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
-           const ColisionSolver &solveColision, int lives)
+           const ColisionSolver &solveColision, int lives, std::function<void()> reset_lvl)
     : Window(title, width, height), m_paddle(paddle), m_bricks(bricks), m_ball(ball), m_solveColision(solveColision),
-      m_background_color(Color::GRAY), m_lives(lives), m_bonusManager(width), m_balls()
+      m_background_color(Color::GRAY), m_lives(lives), m_bonusManager(width), m_balls(),
+      m_reset_lvl(std::move(reset_lvl))
 {
 }
 
@@ -70,13 +71,19 @@ void Game::render(double delta)
 
 void Game::update(double delta)
 {
+    if (m_bricks.empty())
+    {
+        std::cout << "You win! Going to next level..." << std::endl;
+        m_reset_lvl();
+    }
+
     if (m_ball->isOut())
     {
         bool isGameOver = this->decreaseLives();
         if (isGameOver)
             m_closed = true;
         else
-            m_ball->reset(m_width / 2, m_height / 2);
+            m_ball->reset(m_width / 2, m_height / 2 + 25);
     }
 
     // random bonus
@@ -127,4 +134,11 @@ void Game::update(double delta)
         if (m_solveColision.isColision(*bonus, *m_paddle))
             bonus->result(*this);
     }
+}
+
+std::ostream &operator<<(std::ostream &os, const Game &game)
+{
+    os << "Bricks: " << game.m_bricks.size() << std::endl;
+    os << "Lives: " << game.m_lives << std::endl;
+    return os;
 }

@@ -24,7 +24,7 @@ struct BrickManager::BrickData BrickManager::loadBricks(std::string level)
     if (!stream.is_open())
     {
         std::cerr << "Error opening file: " << path << std::endl;
-        return {0, 0};
+        std::throw_with_nested(std::runtime_error("Error opening file"));
     }
     // get the number of rows and columns
     int rows, cols;
@@ -38,6 +38,7 @@ struct BrickManager::BrickData BrickManager::loadBricks(std::string level)
         {
             char brick;
             stream >> brick;
+            // could be avoided if we had a constexpr map ...
             switch (brick)
             {
             case 'N':
@@ -62,24 +63,27 @@ struct BrickManager::BrickData BrickManager::loadBricks(std::string level)
     return {rows, cols, bricks};
 }
 
-std::vector<std::shared_ptr<Brick>> BrickManager::generateBricks(int width, int height, int margin)
+std::vector<std::shared_ptr<Brick>> BrickManager::generateBricks(int width, int height, int margin, std::string level)
 {
     std::vector<std::shared_ptr<Brick>> bricks;
-    auto data = loadBricks("level1");
-    int brick_width, brick_height;
-    // bricks needs to fit in the screen and not intersect with middle of the screen
-    brick_width = width / data.cols;
-    brick_height = height / 2 / data.rows;
+    auto data = loadBricks(level);
+
+    int available_height = height / 2 - margin;
+
+    int brick_height = available_height / data.rows;
+
+    int brick_width = width / data.cols;
+
     for (int i = 0; i < data.rows; i++)
     {
         for (int j = 0; j < data.cols; j++)
         {
-            bricks.push_back(std::make_shared<Brick>(j * brick_height, i * brick_width + margin, brick_height,
-                                                     brick_width, data.bricks[i][j]));
+            int x = j * brick_width;
+            int y = i * brick_height + margin;
+
+            bricks.push_back(std::make_shared<Brick>(x, y, brick_width, brick_height, data.bricks[i][j]));
         }
     }
 
-    // bricks.push_back(std::make_shared<Brick>(j * brick_height, i * brick_width + margin, brick_height,
-    //                                          brick_width, data.bricks[i][j]));
     return bricks;
 }

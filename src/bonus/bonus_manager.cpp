@@ -17,9 +17,9 @@ void BonusManager::generateRandomBonus(const double delta)
     // each m_interval seconds generate a bonus
     static double time = 0;
     time += delta / 1000;
+    // every 3 seconds generate a bonus
     if (time >= 3)
     {
-        std::cout << "Generating bonus" << std::endl;
         time = 0;
         int x = m_gen() % m_width;
         int y = 0;

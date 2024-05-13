@@ -48,3 +48,11 @@ void Paddle::applyEvents(const double delta)
     else if (keyMap[SDLK_LEFT])
         moveLeft(delta);
 }
+
+void Paddle::reset(int x, int y, int width, int height)
+{
+    m_paddle.x = x;
+    m_paddle.y = y;
+    m_paddle.w = width;
+    m_paddle.h = height;
+}
