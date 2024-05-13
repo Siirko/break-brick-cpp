@@ -80,8 +80,12 @@ void Game::update(double delta)
     if (m_ball->isOut())
     {
         bool isGameOver = this->decreaseLives();
+        std::cout << *this;
         if (isGameOver)
+        {
             m_closed = true;
+            std::cout << "Game Over!" << std::endl;
+        }
         else
             m_ball->reset(m_width / 2, m_height / 2 + 25);
     }
