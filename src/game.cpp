@@ -71,13 +71,23 @@ void Game::render(double delta)
 
 void Game::update(double delta)
 {
+    // sloppy fix when loading a new lvl, it goes in it super fast
+    // so player lost one life
+    static bool restarting = false;
+    if (restarting)
+    {
+        restarting = false;
+        return;
+    }
     if (m_bricks.empty())
     {
         std::cout << "You win! Going to next level..." << std::endl;
         m_reset_lvl();
+        restarting = true;
+        return;
     }
 
-    if (m_ball->isOut())
+    else if (m_ball->isOut())
     {
         bool isGameOver = this->decreaseLives();
         std::cout << *this;

@@ -1,7 +1,7 @@
 #include "game_manager.hpp"
 #include <random>
 
-void GameManager::init(int width, int height, float ball_speed, float paddle_speed, int lifes, std::string level)
+void GameManager::init(int width, int height, float ball_speed, float paddle_speed, int lifes)
 {
     m_initValues = {.paddle_x = width / 2 - 50,
                     .paddle_y = height - 40,
@@ -17,7 +17,7 @@ void GameManager::init(int width, int height, float ball_speed, float paddle_spe
     std::random_device rd;
     std::mt19937 gen(rd());
     retrieveLevels();
-
+    std::string level = getNextLevel();
     auto bricks = m_brickManager.generateBricks(width, height, 10, level);
     auto balls =
         generateBall(m_initValues.ball_x, m_initValues.ball_y, m_initValues.ball_radius, m_initValues.ball_speed);
@@ -31,10 +31,15 @@ void GameManager::init(int width, int height, float ball_speed, float paddle_spe
 void GameManager::reset()
 {
     if (m_levels.empty())
-        std::cout << "No more levels, you win!" << std::endl;
-    std::cout << "Going to next level, generating ..." << std::endl;
-    std::string level = m_levels.front();
+    {
+        std::cout << "No more levels, you win! Exiting ..." << std::endl;
+        m_game->close();
+        return;
+    }
     SDL_Delay(3000);
+
+    std::cout << "Going to next level, generating ..." << std::endl;
+    std::string level = getNextLevel();
     m_game->clear();
     m_game->getBall()->reset(m_initValues.ball_x, m_initValues.ball_y);
     m_game->getBalls().clear();
@@ -54,6 +59,7 @@ void GameManager::retrieveLevels()
     std::vector<std::string> levels;
     for (const auto &entry : std::filesystem::directory_iterator(path))
         levels.push_back(entry.path().filename());
+    std::sort(levels.begin(), levels.end());
     for (const auto &level : levels)
         std::cout << level << std::endl;
     m_levels = levels;

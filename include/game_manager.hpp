@@ -26,12 +26,17 @@ class GameManager
     void retrieveLevels();
 
   public:
-    GameManager(int width, int height, float ball_speed = .5f, float paddle_speed = .65f, int lifes = 3,
-                std::string level = "level1")
+    GameManager(int width, int height, float ball_speed = .5f, float paddle_speed = .65f, int lifes = 3)
     {
-        init(width, height, ball_speed, paddle_speed, lifes, level);
+        init(width, height, ball_speed, paddle_speed, lifes);
     }
-    void init(int width, int height, float ball_speed, float paddle_speed, int lifes, std::string level);
+    void init(int width, int height, float ball_speed, float paddle_speed, int lifes);
     void reset();
     inline std::shared_ptr<Game> getGame() const { return m_game; }
+    inline std::string getNextLevel()
+    {
+        auto res = m_levels.front();
+        m_levels.erase(m_levels.begin());
+        return res;
+    }
 };

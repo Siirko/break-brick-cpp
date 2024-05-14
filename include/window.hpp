@@ -45,6 +45,7 @@ class Window
     void loop();
 
     inline bool isClosed() const { return m_closed; }
+    inline void close() { m_closed = true; }
     inline int getWidth() const { return m_width; }
     inline int getHeight() const { return m_height; }
 };
