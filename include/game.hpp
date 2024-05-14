@@ -25,7 +25,7 @@ class Game : public Window, public Event
   public:
     Game(const std::string &title, const int width, const int height, const std::shared_ptr<Paddle> &padle,
          const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
-         const ColisionSolver &solveColision, int lives, std::function<void()> reset_lvl);
+         const ColisionSolver &solveColision, int lives, std::function<void()> reset_lvl, int spawn_bonus_interval);
     virtual ~Game();
 
     void handleEvents(SDL_Event &event, const double delta) override;

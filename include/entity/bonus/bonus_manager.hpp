@@ -16,7 +16,7 @@ class BonusManager
     BonusFactory m_bonusFactory;
 
   public:
-    BonusManager(int width, int spawn_bonus_interval = 10);
+    BonusManager(int width, int spawn_bonus_interval = 3);
 
     void generateRandomBonus(const double delta);
     inline std::vector<std::shared_ptr<Bonus>> &getBonuses() { return m_bonuses; }

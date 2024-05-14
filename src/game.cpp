@@ -6,9 +6,9 @@
 
 Game::Game(const std::string &title, const int width, const int height, const std::shared_ptr<Paddle> &paddle,
            const std::vector<std::shared_ptr<Brick>> &bricks, const std::shared_ptr<Ball> &ball,
-           const ColisionSolver &solveColision, int lives, std::function<void()> reset_lvl)
+           const ColisionSolver &solveColision, int lives, std::function<void()> reset_lvl, int spawn_bonus_interval)
     : Window(title, width, height), m_paddle(paddle), m_bricks(bricks), m_ball(ball), m_solveColision(solveColision),
-      m_background_color(Color::GRAY), m_lives(lives), m_bonusManager(width), m_balls(),
+      m_background_color(Color::GRAY), m_lives(lives), m_bonusManager(width, spawn_bonus_interval), m_balls(),
       m_reset_lvl(std::move(reset_lvl))
 {
 }

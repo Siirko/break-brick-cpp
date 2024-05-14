@@ -1,7 +1,7 @@
 #include "game_manager.hpp"
 #include <random>
 
-void GameManager::init(int width, int height, float ball_speed, float paddle_speed, int lifes)
+void GameManager::init(int width, int height, float ball_speed, float paddle_speed, int lifes, int spawn_bonus_interval)
 {
     m_initValues = {.paddle_x = width / 2 - 50,
                     .paddle_y = height - 40,
@@ -24,8 +24,9 @@ void GameManager::init(int width, int height, float ball_speed, float paddle_spe
     std::shared_ptr<Paddle> paddle =
         std::make_shared<Paddle>(m_initValues.paddle_x, m_initValues.paddle_y, m_initValues.paddle_width,
                                  m_initValues.paddle_height, m_initValues.paddle_speed);
-    m_game = std::make_shared<Game>("Breakout", width, height, paddle, bricks, balls, ColisionSolver(), lifes,
-                                    [&]() { reset(); });
+    m_game = std::make_shared<Game>(
+        "Breakout", width, height, paddle, bricks, balls, ColisionSolver(), lifes, [&]() { reset(); },
+        spawn_bonus_interval);
 }
 
 void GameManager::reset()
