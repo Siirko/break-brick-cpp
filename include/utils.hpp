@@ -22,16 +22,19 @@ template <typename... Args> std::string string_format(const std::string &format,
 }
 
 // macro to check if SDL is initialized
-template <typename T> inline void checkSDL(const T &result, const T &error)
+template <typename T>
+inline void checkSDL(const T &result, const T &error, const char *function_name = __builtin_FUNCTION(),
+                     const char *file_name = __builtin_FILE(), const int line = __builtin_LINE())
 {
     if (result == error)
     {
+        std::cout << "Error in " << function_name << " at " << file_name << ":" << line << std::endl;
 // if std::format is found in the code, use it
 // else use string_format
 #ifdef __cpp_lib_format
         throw std::runtime_error(std::format("SDL Error: {}", SDL_GetError()));
 #else
-        throw std::runtime_error(string_format("SDL Error: {}", SDL_GetError()));
+        throw std::runtime_error(string_format("SDL Error: %s\n", SDL_GetError()));
 #endif
     }
 }
